@@ -8,134 +8,43 @@
   <link rel="canonical" href="https://cyruspaulson.com/" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0f172a" />
+
   <!-- Open Graph -->
   <meta property="og:title" content="Cyrus Paulson — Controls Engineer" />
   <meta property="og:description" content="Portfolio, projects, skills, and contact." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cyruspaulson.com/" />
-  <meta property="og:image" content="/images/og.jpg" />
+  <meta property="og:image" content="/assets/og-image.svg" />
+
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Cyrus Paulson — Controls Engineer" />
   <meta name="twitter:description" content="Portfolio, projects, skills, and contact." />
-  <meta name="twitter:image" content="/images/og.jpg" />
+  <meta name="twitter:image" content="/assets/og-image.svg" />
 
-  <style>
-    /* ------------------
-       Design Tokens
-    ------------------ */
-    :root {
-      --bg: #0b1220;           /* slate-950-ish */
-      --panel: #0f172a;        /* slate-900 */
-      --panel-2: #121b31;      
-      --text: #e5e7eb;         /* gray-200 */
-      --muted: #9aa3b2;        /* gray-400 */
-      --line: #1f2a44;         /* divider */
-      --primary: #3b82f6;      /* blue-500 */
-      --primary-2: #60a5fa;    /* blue-400 */
-      --ok: #22c55e;
-      --warn: #f59e0b;
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,0.25);
-      --maxw: 1120px;
-      --speed: 220ms;
-    }
+  <!-- Basic CSP (meta) -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 img-src 'self' data:;
+                 style-src 'self';
+                 script-src 'self' 'unsafe-inline';
+                 base-uri 'self';
+                 form-action 'self'">
 
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #ffffff;
-        --panel: #f8fafc;      /* slate-50 */
-        --panel-2: #eef2f7;
-        --text: #0f172a;       /* slate-900 */
-        --muted: #475569;      /* slate-600 */
-        --line: #e2e8f0;
-      }
-    }
-
-    [data-theme="light"] {
-      --bg: #ffffff;
-      --panel: #f8fafc;
-      --panel-2: #eef2f7;
-      --text: #0f172a;
-      --muted: #475569;
-      --line: #e2e8f0;
-    }
-
-    html { scroll-behavior: smooth; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 600px at 10% -10%, rgba(59,130,246,0.15), transparent 60%),
-                  radial-gradient(800px 400px at 100% 10%, rgba(96,165,250,0.12), transparent 60%),
-                  var(--bg);
-      color: var(--text);
-    }
-
-    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
-
-    /* ---------- Header ---------- */
-    .skip { position: absolute; left: -9999px; }
-    .skip:focus { left: 12px; top: 12px; background: var(--primary); color: white; padding: 8px 12px; border-radius: 8px; }
-
-    header {
-      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);
-      background: color-mix(in srgb, var(--panel), transparent 40%);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav { display:flex; align-items:center; justify-content:space-between; height:64px; }
-    .brand { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px; }
-    .badge { font-size: 12px; color: var(--muted); border:1px solid var(--line); padding:4px 8px; border-radius:999px; }
-    nav a { color: var(--muted); text-decoration:none; margin:0 10px; font-weight:500; }
-    nav a:hover { color: var(--text); }
-
-    .btn { appearance:none; border:1px solid var(--line); background:linear-gradient(180deg, var(--panel), var(--panel-2));
-      color:var(--text); padding:10px 14px; border-radius:12px; transition:transform var(--speed) ease, box-shadow var(--speed) ease, border-color var(--speed) ease; cursor:pointer; }
-    .btn.primary { border-color: color-mix(in srgb, var(--primary), white 60%); background: linear-gradient(180deg, color-mix(in srgb, var(--primary), #000 20%), var(--primary)); box-shadow: 0 8px 20px rgba(59,130,246,.25); }
-    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
-
-    /* ---------- Sections ---------- */
-    section { padding: 72px 0; border-bottom: 1px solid var(--line); }
-    h1, h2, h3 { line-height: 1.2; margin: 0 0 12px; }
-    h1 { font-size: clamp(32px, 4vw, 56px); letter-spacing: .2px; }
-    h2 { font-size: clamp(24px, 2.6vw, 36px); margin-bottom: 6px; }
-    p.lead { font-size: clamp(16px, 2vw, 18px); color: var(--muted); max-width: 70ch; }
-
-    .stack { display:flex; flex-wrap:wrap; gap:10px; margin-top: 18px; }
-    .chip { border:1px solid var(--line); color:var(--muted); padding:8px 12px; border-radius:999px; font-size:14px; }
-
-    .grid { display:grid; gap:18px; }
-    @media (min-width: 768px) { .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (min-width: 1024px) { .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-
-    .card { background: linear-gradient(180deg, color-mix(in srgb, var(--panel), #000 10%), var(--panel)); border:1px solid var(--line); border-radius: var(--radius); padding:18px; transition: transform var(--speed) ease, box-shadow var(--speed) ease, border-color var(--speed) ease; }
-    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--primary), var(--line) 60%); }
-
-    .footer { padding: 36px 0; color: var(--muted); font-size: 14px; }
-
-    /* ---------- Animations / Reveal ---------- */
-    .reveal { opacity: 0; transform: translateY(16px); }
-    .reveal.in { opacity: 1; transform: none; transition: opacity var(--speed) ease, transform var(--speed) ease; }
-    @media (prefers-reduced-motion: reduce) { .reveal, .reveal.in, .btn { transition: none !important; transform: none !important; }
-      html { scroll-behavior: auto; } }
-
-    /* ---------- Utilities ---------- */
-    .row { display:flex; align-items:center; gap:12px; flex-wrap: wrap; }
-    .muted { color: var(--muted); }
-    .spacer { height: 8px; }
-    .mt-20 { margin-top: 20px; }
-    .mt-32 { margin-top: 32px; }
-    .mt-48 { margin-top: 48px; }
-    .center { text-align:center; }
-  </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
 </head>
 <body>
   <a href="#main" class="skip">Skip to content</a>
+
   <header>
     <div class="container nav">
       <div class="brand">
-        <!-- Simple inline mark/logo (replace with your SVG if you want) -->
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".2" stroke-width="2"/><path d="M7 13.5L11 8l6 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".2" stroke-width="2"/>
+          <path d="M7 13.5L11 8l6 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         <span>Cyrus Paulson</span>
         <span class="badge">Controls Engineer</span>
       </div>
@@ -151,24 +60,9 @@
   </header>
 
   <main id="main">
-    <!-- HERO -->
+    <!-- HERO / ABOUT -->
     <section class="container" id="about">
-      <div class="reveal">
-        <h1>Designing safe, reliable control systems for gas turbines</h1>
-        <p class="lead">Controls Engineer specializing in <strong>Mark VIe</strong> and <strong>CIMPLICITY HMI/SCADA</strong>. I build and maintain systems that reduce downtime and improve operational safety. This site shares selected projects and a public CV. The private version is available on request.</p>
-        <div class="row mt-20">
-          <a class="btn primary" href="/cv/Cyrus-Paulson-CV-PUBLIC.pdf" target="_blank" rel="noopener">Download CV</a>
-          <button class="btn" id="copyEmail">Copy Email</button>
-          <a class="btn" id="mailLink" href="#">Email Me</a>
-        </div>
-        <div class="stack">
-          <span class="chip">Mark VIe</span>
-          <span class="chip">CIMPLICITY</span>
-          <span class="chip">IPSL / Modeling</span>
-          <span class="chip">AHK · VBA · PowerShell</span>
-          <span class="chip">ESP32 · Embedded</span>
-        </div>
-      </div>
+      <div id="hero" class="reveal"></div>
     </section>
 
     <!-- EXPERIENCE -->
@@ -176,25 +70,7 @@
       <div class="container reveal">
         <h2>Experience</h2>
         <p class="muted">Impact-focused highlights. Full details in the CV.</p>
-        <div class="grid cols-2 mt-20">
-          <article class="card">
-            <h3>Controls Engineer — Gas Turbine Controls</h3>
-            <p class="muted">Mark VIe, CIMPLICITY · 20XX—Present</p>
-            <ul>
-              <li>Delivered control logic upgrades that reduced trip incidents by <strong>XX%</strong>.</li>
-              <li>Built diagnostics dashboards in CIMPLICITY to cut MTTR by <strong>YY%</strong>.</li>
-              <li>Supported commissioning and FAT/SAT for multi-site deployments.</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Automation & Tooling</h3>
-            <p class="muted">AHK, VBA, PowerShell</p>
-            <ul>
-              <li>Created scripting utilities that saved <strong>NN hours/quarter</strong> across the team.</li>
-              <li>Standardized Excel-based procedures with validation and exports.</li>
-            </ul>
-          </article>
-        </div>
+        <div id="experience-list" class="grid cols-2 mt-20"></div>
       </div>
     </section>
 
@@ -203,23 +79,7 @@
       <div class="container reveal">
         <h2>Selected Projects</h2>
         <p class="muted">A few safe-to-share summaries (no proprietary code).</p>
-        <div class="grid cols-3 mt-20">
-          <article class="card">
-            <h3>HMI Alarm Rationalization</h3>
-            <p class="muted">CIMPLICITY, ISA-18.2</p>
-            <p>Reduced alarm floods by grouping & prioritizing events; improved operator response time.</p>
-          </article>
-          <article class="card">
-            <h3>Mark VIe Logic Tuning</h3>
-            <p class="muted">Mark VIe, Trip avoidance</p>
-            <p>Reviewed permissives & interlocks; cut nuisance trips and improved startup reliability.</p>
-          </article>
-          <article class="card">
-            <h3>Maintenance Toolkit</h3>
-            <p class="muted">AHK · PowerShell · Excel</p>
-            <p>Automated log parsing and report generation; standardized handover documents.</p>
-          </article>
-        </div>
+        <div id="projects-grid" class="grid cols-3 mt-20"></div>
       </div>
     </section>
 
@@ -227,32 +87,7 @@
     <section id="skills">
       <div class="container reveal">
         <h2>Skills</h2>
-        <div class="grid cols-3 mt-20">
-          <div class="card">
-            <h3>Controls</h3>
-            <ul>
-              <li>Mark VIe / ToolboxST</li>
-              <li>CIMPLICITY HMI/SCADA</li>
-              <li>Commissioning (FAT/SAT)</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Modeling & Scripting</h3>
-            <ul>
-              <li>IPSL / Simulation basics</li>
-              <li>AutoHotkey (AHK), VBA, PowerShell</li>
-              <li>Python basics</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Misc</h3>
-            <ul>
-              <li>Documentation & SOPs</li>
-              <li>Root-cause analysis (RCA)</li>
-              <li>Embedded (ESP32, hobby)</li>
-            </ul>
-          </div>
-        </div>
+        <div id="skills-list" class="grid cols-3 mt-20"></div>
       </div>
     </section>
 
@@ -260,13 +95,7 @@
     <section id="contact">
       <div class="container reveal">
         <h2>Contact</h2>
-        <p class="lead">The fastest way to reach me is email. I keep a public CV here; a private version is available on request.</p>
-        <div class="row mt-20">
-          <button class="btn primary" id="copyEmail2">Copy Email</button>
-          <a class="btn" id="mailLink2" href="#">Open Email App</a>
-          <a class="btn" href="https://www.linkedin.com/in/cyrus-paulson/" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
-        <p class="muted mt-20">I avoid forms to reduce spam. This site ships no trackers or analytics.</p>
+        <div id="contact-block"></div>
       </div>
     </section>
   </main>
@@ -287,55 +116,14 @@
     "jobTitle": "Controls Engineer",
     "url": "https://cyruspaulson.com/",
     "sameAs": [
-      "https://www.linkedin.com/in/your-linkedin/",
+      "https://www.linkedin.com/in/cyrus-paulson/",
       "https://github.com/cyruspaulson"
     ]
   }
   </script>
 
-  <script>
-    // --------- Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // --------- Theme toggle with localStorage
-    const toggle = document.getElementById('themeToggle');
-    const root = document.documentElement;
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) root.setAttribute('data-theme', savedTheme);
-    toggle.addEventListener('click', () => {
-      const next = root.getAttribute('data-theme') === 'light' ? '' : 'light';
-      if (next) root.setAttribute('data-theme', next); else root.removeAttribute('data-theme');
-      localStorage.setItem('theme', next);
-      toggle.setAttribute('aria-pressed', next === 'light');
-    });
-
-    // --------- Email obfuscation (simple)
-    const user = 'mail';                 // CHANGE if you switch primary address
-    const domain = 'cyruspaulson.com';
-    const addr = `${user}@${domain}`;
-    const linkEls = [document.getElementById('mailLink'), document.getElementById('mailLink2')];
-    linkEls.forEach(el => { if (el) { el.href = `mailto:${addr}`; el.setAttribute('data-email', addr); }});
-
-    // Copy to clipboard buttons
-    function copyAddr(btn){
-      navigator.clipboard.writeText(addr).then(() => {
-        btn.textContent = 'Copied!'; btn.style.borderColor = 'var(--ok)';
-        setTimeout(() => { btn.textContent = 'Copy Email'; btn.style.borderColor = 'var(--line)'; }, 1200);
-      });
-    }
-    document.getElementById('copyEmail')?.addEventListener('click', e => copyAddr(e.currentTarget));
-    document.getElementById('copyEmail2')?.addEventListener('click', e => copyAddr(e.currentTarget));
-
-    // --------- Section reveal on scroll (respects reduced motion)
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!prefersReduced) {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('in'); });
-      }, { threshold: 0.12 });
-      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    } else {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-    }
-  </script>
+  <!-- Scripts -->
+  <script defer src="/js/utils.js"></script>
+  <script defer src="/js/app.js"></script>
 </body>
 </html>
