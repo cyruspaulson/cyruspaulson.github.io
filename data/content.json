@@ -1,1 +1,83 @@
 
+{
+  "profile": {
+    "name": "Cyrus Paulson",
+    "title": "Controls Engineer",
+    "headline": "Gas Turbine Controls — Mark VIe · CIMPLICITY",
+    "summary": "I design and optimize control systems for gas turbines and HMI/SCADA (GE Mark VIe, CIMPLICITY), and build tooling that improves reliability and operator experience.",
+    "location": "Kochi, IN",
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/cyrus-paulson/",
+      "github": "https://github.com/cyruspaulson",
+      "website": "https://cyruspaulson.com"
+    },
+    "email": {
+      "local_b64": "bWFpbA==",
+      "domain_b64": "Y3lydXNwYXVsc29uLmNvbQ=="
+    },
+    "cvPath": "/cv/Cyrus-Paulson-CV-PUBLIC.pdf"
+  },
+
+  "experience": [
+    {
+      "role": "Controls Engineer",
+      "company": "Company",
+      "location": "City, Country",
+      "start": "2022-03",
+      "end": "present",
+      "highlights": [
+        "Improved start-up reliability by 15% via Mark VIe logic changes.",
+        "Reduced operator intervention by 25% with CIMPLICITY alarms/displays.",
+        "Saved ~8 hrs/week with PowerShell/Excel validation tooling."
+      ],
+      "tags": ["Mark VIe", "CIMPLICITY", "PowerShell"]
+    },
+    {
+      "role": "Automation & Tooling",
+      "company": "Freelance",
+      "location": "Remote",
+      "start": "2020-01",
+      "end": "2022-02",
+      "highlights": [
+        "AHK/VBA utilities reduced manual plant reporting steps by ~60%.",
+        "Prototyped ESP32-based logger (MQTT) for test rigs."
+      ],
+      "tags": ["AHK", "VBA", "ESP32", "MQTT"]
+    }
+  ],
+
+  "projects": [
+    {
+      "name": "HMI Alarm Rationalization",
+      "blurb": "Reduced alarm floods by grouping and prioritizing events; improved operator response time.",
+      "tags": ["CIMPLICITY", "ISA-18.2"]
+    },
+    {
+      "name": "Mark VIe Logic Tuning",
+      "blurb": "Reviewed permissives and interlocks; cut nuisance trips and improved startup reliability.",
+      "tags": ["Mark VIe", "Trip Logic", "Reliability"]
+    },
+    {
+      "name": "Maintenance Toolkit",
+      "blurb": "Automated log parsing and report generation; standardized handover documents.",
+      "tags": ["AHK", "PowerShell", "Excel"]
+    }
+  ],
+
+  "skills": {
+    "Controls": ["GE Mark VIe", "CIMPLICITY", "Commissioning (FAT/SAT)"],
+    "Scripting": ["AHK", "VBA", "PowerShell"],
+    "Embedded": ["ESP32", "MQTT"]
+  },
+
+  "contact": {
+    "cta": "The fastest way to reach me is email. Public CV here; a private version is available on request.",
+    "buttons": ["copy", "mailto", "linkedin"]
+  },
+
+  "ui": {
+    "theme": "auto",
+    "animations": "subtle",
+    "breakpoints": { "sm": 640, "md": 768, "lg": 1024 }
+  }
+}
