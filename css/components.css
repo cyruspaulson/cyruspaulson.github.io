@@ -4,9 +4,21 @@ header{
   background: color-mix(in srgb, var(--panel), transparent 40%);
   border-bottom:1px solid var(--line);
 }
-.brand svg { color: var(--text); }
 .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
-.brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
+.brand {
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+.brand svg {
+  color: inherit;
+}
+.brand svg path {
+  fill: currentColor !important;
+}
 .badge{font-size:12px; color:var(--muted); border:1px solid var(--line); padding:4px 8px; border-radius:999px}
 nav a{color:var(--muted); text-decoration:none; margin:0 10px; font-weight:500}
 nav a:hover{color:var(--text)}
