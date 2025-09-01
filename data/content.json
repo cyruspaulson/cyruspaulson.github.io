@@ -2,9 +2,9 @@
   "profile": {
     "name": "Cyrus Paulson",
     "title": "Controls Engineer",
-    "headline": "Gas Turbine Controls — Mark VIe · CIMPLICITY",
+    "headline": "Gas Turbine Controls - Mark VIe · CIMPLICITY",
     "summary": "I design and optimize control systems for gas turbines and HMI/SCADA (GE Mark VIe, CIMPLICITY), and build tooling that improves reliability and operator experience.",
-    "location": "Kochi, IN",
+    "location": "Hyderabad, IN",
     "links": {
       "linkedin": "https://www.linkedin.com/in/cyrus-paulson/",
       "github": "https://github.com/cyruspaulson",
@@ -14,15 +14,15 @@
       "local_b64": "bWFpbA==",
       "domain_b64": "Y3lydXNwYXVsc29uLmNvbQ=="
     },
-    "cvPath": "/cv/Cyrus-Paulson-CV-PUBLIC.pdf"
+    "cvPath": "/cv/Cyrus_CV_Public.pdf"
   },
 
   "experience": [
     {
       "role": "Controls Engineer",
       "company": "Company",
-      "location": "City, Country",
-      "start": "2022-03",
+      "location": "Hyderabad, India",
+      "start": "2023-12",
       "end": "present",
       "highlights": [
         "Improved start-up reliability by 15% via Mark VIe logic changes.",
@@ -64,7 +64,7 @@
   ],
 
   "skills": {
-    "Controls": ["GE Mark VIe", "CIMPLICITY", "Commissioning (FAT/SAT)"],
+    "Controls": ["GE Mark VIe", "CIMPLICITY", "Commissioning (FAT/SWAT)"],
     "Scripting": ["AHK", "VBA", "PowerShell"],
     "Embedded": ["ESP32", "MQTT"]
   },
