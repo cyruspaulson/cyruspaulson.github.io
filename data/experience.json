@@ -1,0 +1,28 @@
+[
+  {
+    "role": "Controls Engineer",
+    "company": "Quest Gloabl (in Alliance with GE Vernova)",
+    "location": "Hyderabad, India",
+    "start": "12-2023",
+    "end": "present",
+    "highlights": [
+      "Improved start-up reliability by 15% via Mark VIe logic changes.",
+      "Reduced operator intervention by 25% with CIMPLICITY alarms/displays.",
+      "Done 123456789",
+      "Will fill in later"
+    ],
+    "tags": ["Mark VIe", "CIMPLICITY", "PowerShell"]
+  },
+  {
+    "role": "Assistant Manager",
+    "company": "Cyrus Enterprises",
+    "location": "Thrissur, India",
+    "start": "07-2022",
+    "end": "11-2023",
+    "highlights": [
+      "AHK/VBA utilities reduced manual plant reporting steps by ~60%.",
+      "Prototyped ESP32-based logger (MQTT) for test rigs."
+    ],
+    "tags": ["AHK", "VBA", "ESP32", "MQTT"]
+  }
+]
