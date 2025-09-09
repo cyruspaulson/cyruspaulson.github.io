@@ -1,0 +1,5 @@
+{
+  "Controls": ["GE Mark VIe", "CIMPLICITY", "Commissioning (FAT/SAT)"],
+  "Scripting": ["AHK", "VBA", "PowerShell"],
+  "Embedded": ["ESP32", "MQTT"]
+}
