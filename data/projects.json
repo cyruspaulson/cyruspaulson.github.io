@@ -1,0 +1,17 @@
+[
+  {
+    "name": "HMI Alarm Rationalization",
+    "blurb": "Reduced alarm floods by grouping and prioritizing events.",
+    "tags": ["CIMPLICITY", "ISA-18.2"]
+  },
+  {
+    "name": "Mark VIe Logic Tuning",
+    "blurb": "Reviewed permissives and interlocks; cut nuisance trips.",
+    "tags": ["Mark VIe", "Reliability"]
+  },
+  {
+    "name": "Maintenance Toolkit",
+    "blurb": "Automated log parsing and report generation.",
+    "tags": ["AHK", "PowerShell", "Excel"]
+  }
+]
