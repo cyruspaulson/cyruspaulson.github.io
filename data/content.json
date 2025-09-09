@@ -2,8 +2,8 @@
   "profile": {
     "name": "Cyrus Paulson",
     "title": "Controls Engineer",
-    "headline": "Gas Turbine Controls - Mark VIe · CIMPLICITY",
-    "summary": "I design and optimize control systems for gas turbines and HMI/SCADA (GE Mark VIe, CIMPLICITY), and build tooling that improves reliability and operator experience.",
+    "headline": "Control Systems Engineer - GE Mark VIe · CIMPLICITY HMI/SCADA · Gas Turbine",
+    "summary": "I am a Controls Engineer with expertise in GE Gas Turbine Controls (Mark VIe, ToolboxST) and CIMPLICITY HMI/SCADA. I have worked on multiple turbine frames (7FA.05, 6F.03, 9F, HA) including SEC projects in Saudi Arabia. Skilled in commissioning, troubleshooting, and automation tooling, I deliver solutions that improve reliability, reduce operator intervention, and accelerate project schedules.",
     "location": "Hyderabad, IN",
     "links": {
       "linkedin": "https://www.linkedin.com/in/cyrus-paulson/",
@@ -41,7 +41,7 @@
         "AHK/VBA utilities reduced manual plant reporting steps by ~60%.",
         "Prototyped ESP32-based logger (MQTT) for test rigs."
       ],
-      "tags": ["AHK", "VBA", "ESP32", "MQTT"]
+      "tags": ["GE Mark VIe, "ToolboxST", "CIMPLICITY HMI/SCADA", "Commissioning Support", "Troubleshooting", "ECS-DCS Integration", "Modbus TCP/IP · OPC UA", "Automation Tools"]
     }
   ],
 
