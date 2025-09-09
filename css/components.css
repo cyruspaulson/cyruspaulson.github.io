@@ -67,3 +67,42 @@ section{padding:72px 0; border-bottom:1px solid var(--line)}
   .reveal, .reveal.in, .btn{transition:none !important; transform:none !important}
   html{scroll-behavior:auto}
 }
+
+/* 404 Page */
+.error-box {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.error-box h1 {
+  white-space: nowrap;                  /* always one line */
+  font-size: clamp(20px, 6vw, 48px);    /* responsive sizing */
+  margin-bottom: 16px;
+}
+
+.error-box p {
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+a.back-home {
+  text-decoration: none;
+  border: 1px solid var(--line);
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: var(--text);
+  display: inline-block;
+  transition: all var(--speed) ease;
+}
+
+a.back-home:hover {
+  background: var(--panel-2);
+  border-color: var(--primary);
+  color: var(--primary-2);
+}
