@@ -41,7 +41,7 @@
         "AHK/VBA utilities reduced manual plant reporting steps by ~60%.",
         "Prototyped ESP32-based logger (MQTT) for test rigs."
       ],
-      "tags": ["GE Mark VIe, "ToolboxST", "CIMPLICITY HMI/SCADA", "Commissioning Support", "Troubleshooting", "ECS-DCS Integration", "Modbus TCP/IP · OPC UA", "Automation Tools"]
+      "tags": ["GE Mark VIe", "ToolboxST", "CIMPLICITY HMI/SCADA", "Commissioning Support", "Troubleshooting", "ECS-DCS Integration", "Modbus TCP/IP · OPC UA", "Automation Tools"]
     }
   ],
 
