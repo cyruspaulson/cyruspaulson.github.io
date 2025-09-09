@@ -1,15 +1,14 @@
 [
   {
     "role": "Controls Engineer",
-    "company": "Quest Gloabl (in Alliance with GE Vernova)",
+    "company": "Quest Global (in alliance with GE Vernova)",
     "location": "Hyderabad, India",
-    "start": "12-2023",
-    "end": "present",
+    "start": "2023-12",
+    "end": null,
+    "summary": "Mark VIe logic, CIMPLICITY HMI/SCADA, commissioning support.",
     "highlights": [
-      "Improved start-up reliability by 15% via Mark VIe logic changes.",
-      "Reduced operator intervention by 25% with CIMPLICITY alarms/displays.",
-      "Done 123456789",
-      "Will fill in later"
+      "Improved start-up reliability by ~15% via Mark VIe logic changes.",
+      "Reduced operator intervention by ~25% with CIMPLICITY alarm/display rationalization."
     ],
     "tags": ["Mark VIe", "CIMPLICITY", "PowerShell"]
   },
@@ -17,11 +16,12 @@
     "role": "Assistant Manager",
     "company": "Cyrus Enterprises",
     "location": "Thrissur, India",
-    "start": "07-2022",
-    "end": "11-2023",
+    "start": "2022-07",
+    "end": "2023-11",
+    "summary": "Automation and reporting tooling for operations.",
     "highlights": [
-      "AHK/VBA utilities reduced manual plant reporting steps by ~60%.",
-      "Prototyped ESP32-based logger (MQTT) for test rigs."
+      "Built AHK/VBA utilities that cut manual plant reporting steps by ~60%.",
+      "Prototyped ESP32-based data logger (MQTT) for test rigs."
     ],
     "tags": ["AHK", "VBA", "ESP32", "MQTT"]
   }
