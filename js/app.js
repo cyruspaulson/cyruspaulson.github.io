@@ -1,153 +1,147 @@
-import { escapeHTML, decodeB64, formatDate, inViewReveal, copyToClipboard } from './utils.js';
+// /js/app.js
 
-async function loadContent(){
-  const url = `/data/content.json?v=${Date.now()}`;
-  const res = await fetch(url, {cache:'no-store'});
-  if (!res.ok) throw new Error('Failed to load content.json');
-  return res.json();
-}
+// ---- Theme toggle (kept here as page behavior) ----
+(function initThemeToggle(){
+  var btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  var saved = localStorage.getItem('theme');
+  if (saved) btn.setAttribute('aria-pressed', saved === 'light');
 
-function assembleEmail(emailObj){
-  const local = decodeB64(emailObj?.local_b64);
-  const domain = decodeB64(emailObj?.domain_b64);
-  return (local && domain) ? `${local}@${domain}` : '';
-}
-
-function pickHeroChips(skills){
-  // Flatten first few skills across groups for the hero chips (up to 5)
-  const out = [];
-  Object.values(skills || {}).forEach(arr => {
-    (arr || []).forEach(s => { if (out.length < 5) out.push(s); });
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? '' : 'light';
+    if (next) root.setAttribute('data-theme', next);
+    else root.removeAttribute('data-theme');
+    localStorage.setItem('theme', next);
+    btn.setAttribute('aria-pressed', next === 'light');
   });
-  return out;
-}
+})();
 
-/* ---------- Renderers ---------- */
-function renderHero(profile, skills){
-  const hero = document.getElementById('hero'); if (!hero) return;
-  const email = assembleEmail(profile.email);
-  const chips = pickHeroChips(skills);
+// ---- Renderers ----
+function renderHero(intro, contact){
+  var el = document.getElementById('hero'); if(!el) return;
+  var email = assembleEmail(contact.email);
+  var chips = (intro.chips||[]).map(function(c){ return '<span class="chip">'+escapeHTML(c)+'</span>'; }).join('');
 
-  hero.innerHTML = `
-    <h1>${escapeHTML(profile.headline || 'Designing safe, reliable control systems for gas turbines')}</h1>
-    <p class="lead">${escapeHTML(profile.summary || '')}</p>
-    <div class="row mt-20">
-      <a class="btn primary" href="${escapeHTML(profile.cvPath || '#')}" target="_blank" rel="noopener">Download CV</a>
-      <button class="btn" id="copyEmailBtn">Copy Email</button>
-      <a class="btn" id="mailtoBtn" href="${email ? `mailto:${email}` : '#'}">Email Me</a>
-    </div>
-    ${chips.length ? `<div class="stack">${chips.map(c=>`<span class="chip">${escapeHTML(c)}</span>`).join('')}</div>` : ''}
-  `;
+  var buttons = [
+    '<a class="btn primary" href="'+escapeHTML(intro.cvPath)+'" target="_blank" rel="noopener"><span class="icon mail" aria-hidden="true"></span> Download CV</a>',
+    '<button class="btn" id="copyEmail"><span class="icon mail" aria-hidden="true"></span> Copy Email</button>',
+    '<a class="btn" id="mailLink" href="mailto:'+email+'"><span class="icon mail" aria-hidden="true"></span> Email Me</a>'
+  ].join('');
 
-  // actions
-  const copyBtn = document.getElementById('copyEmailBtn');
-  if (copyBtn && email){
-    copyBtn.addEventListener('click', async () => {
-      const ok = await copyToClipboard(email);
-      copyBtn.textContent = ok ? 'Copied!' : 'Copy failed';
-      copyBtn.style.borderColor = ok ? 'var(--ok)' : 'var(--warn)';
-      setTimeout(()=>{ copyBtn.textContent='Copy Email'; copyBtn.style.borderColor='var(--line)'; }, 1200);
+  el.innerHTML =
+    '<h1>'+escapeHTML(intro.headline)+'</h1>'+
+    (intro.subtitle ? '<h2 class="muted" style="margin:6px 0 18px">'+escapeHTML(intro.subtitle)+'</h2>' : '')+
+    '<p class="lead">'+escapeHTML(intro.summary)+'</p>'+
+    '<div class="row mt-20">'+buttons+'</div>'+
+    (chips ? '<div class="stack">'+chips+'</div>' : '');
+
+  // Copy handler
+  var copyBtn = document.getElementById('copyEmail');
+  if(copyBtn){
+    copyBtn.addEventListener('click', function(e){
+      navigator.clipboard.writeText(email).then(function(){
+        var b = e.currentTarget;
+        b.textContent = 'Copied!';
+        setTimeout(function(){ b.innerHTML = '<span class="icon mail" aria-hidden="true"></span> Copy Email'; }, 1200);
+      });
     });
   }
 }
 
-function renderExperience(list){
-  const mount = document.getElementById('experience-list'); if (!mount) return;
-  const cards = (list || []).map(item => {
-    const start = formatDate(item.start);
-    const end = item.end ? formatDate(item.end) : '';
-    const when = `${start}${end ? ' — ' + end : ''}`;
-    const tags = (item.tags || []).map(t => `<span class="chip">${escapeHTML(t)}</span>`).join('');
-    const highlights = (item.highlights || []).map(h => `<li>${escapeHTML(h)}</li>`).join('');
-    return `
-      <article class="card">
-        <h3>${escapeHTML(item.role || '')} — ${escapeHTML(item.company || '')}</h3>
-        <p class="muted">${escapeHTML(item.location || '')}${item.location ? ' · ' : ''}${escapeHTML(when)}</p>
-        <ul>${highlights}</ul>
-        ${tags ? `<div class="stack mt-20">${tags}</div>` : ''}
-      </article>
-    `;
+function renderExperience(items){
+  var el = document.getElementById('experienceGrid'); if(!el) return;
+  el.innerHTML = (items||[]).map(function(job){
+    return [
+      '<article class="card">',
+        '<h3>'+escapeHTML(job.role)+(job.company ? ' — '+escapeHTML(job.company) : '')+'</h3>',
+        '<p class="muted">'+fmtDate(job.start)+' – '+fmtDate(job.end)+' · '+escapeHTML(job.location||'')+'</p>',
+        (job.summary ? '<p>'+escapeHTML(job.summary)+'</p>' : ''),
+        (Array.isArray(job.highlights)? '<ul>'+job.highlights.map(function(h){return '<li>'+escapeHTML(h)+'</li>';}).join('')+'</ul>' : ''),
+        (Array.isArray(job.tags)? '<div class="stack">'+job.tags.map(function(t){return '<span class="chip">'+escapeHTML(t)+'</span>';}).join('')+'</div>' : ''),
+      '</article>'
+    ].join('');
   }).join('');
-  mount.innerHTML = cards;
 }
 
-function renderProjects(list){
-  const mount = document.getElementById('projects-grid'); if (!mount) return;
-  const cards = (list || []).map(p => {
-    const tags = (p.tags || []).map(t => `<span class="chip">${escapeHTML(t)}</span>`).join('');
-    const links = [];
-    if (p.links?.github) links.push(`<a class="btn" href="${escapeHTML(p.links.github)}" target="_blank" rel="noopener">Code</a>`);
-    if (p.links?.demo) links.push(`<a class="btn" href="${escapeHTML(p.links.demo)}" target="_blank" rel="noopener">Demo</a>`);
-    return `
-      <article class="card">
-        <h3>${escapeHTML(p.name || '')}</h3>
-        ${p.blurb ? `<p class="muted">${escapeHTML(p.blurb)}</p>` : ''}
-        ${tags ? `<div class="stack mt-20">${tags}</div>` : ''}
-        ${links.length ? `<div class="row mt-20">${links.join('')}</div>` : ''}
-      </article>
-    `;
+function renderProjects(items){
+  var el = document.getElementById('projectsGrid'); if(!el) return;
+  el.innerHTML = (items||[]).map(function(p){
+    return [
+      '<article class="card">',
+        '<h3>'+escapeHTML(p.name)+'</h3>',
+        (p.blurb ? '<p class="muted">'+escapeHTML(p.blurb)+'</p>' : ''),
+        (Array.isArray(p.tags)? '<div class="stack">'+p.tags.map(function(t){return '<span class="chip">'+escapeHTML(t)+'</span>';}).join('')+'</div>' : ''),
+      '</article>'
+    ].join('');
   }).join('');
-  mount.innerHTML = cards;
 }
 
 function renderSkills(groups){
-  const mount = document.getElementById('skills-list'); if (!mount) return;
-  const cards = Object.entries(groups || {}).map(([group, items]) => `
-    <div class="card">
-      <h3>${escapeHTML(group)}</h3>
-      <ul>${(items||[]).map(i=>`<li>${escapeHTML(i)}</li>`).join('')}</ul>
-    </div>
-  `).join('');
-  mount.innerHTML = cards;
+  var el = document.getElementById('skillsGrid'); if(!el) return;
+  var html = Object.keys(groups||{}).map(function(group){
+    var list = groups[group] || [];
+    return [
+      '<div class="card">',
+        '<h3>'+escapeHTML(group)+'</h3>',
+        '<ul>'+list.map(function(s){return '<li>'+escapeHTML(s)+'</li>';}).join('')+'</ul>',
+      '</div>'
+    ].join('');
+  }).join('');
+  el.innerHTML = html;
 }
 
-function renderContact(profile, contact){
-  const mount = document.getElementById('contact-block'); if (!mount) return;
-  const email = assembleEmail(profile.email);
-  const buttons = contact?.buttons || ['copy','mailto','linkedin'];
-  const btns = [];
+function renderContact(contact){
+  var el = document.getElementById('contactButtons'); if(!el) return;
+  var links = contact.links || {};
+  var email = assembleEmail(contact.email);
 
-  if (buttons.includes('copy')){
-    btns.push(`<button class="btn primary" id="copyEmailBtn2">Copy Email</button>`);
-  }
-  if (buttons.includes('mailto')){
-    btns.push(`<a class="btn" id="mailtoBtn2" href="${email ? `mailto:${email}` : '#'}">Open Email App</a>`);
-  }
-  if (buttons.includes('linkedin') && profile.links?.linkedin){
-    btns.push(`<a class="btn" href="${escapeHTML(profile.links.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>`);
-  }
+  var btns = (contact.primary_buttons||[]).map(function(btn){
+    if (btn.type === 'copy-email'){
+      return '<button class="btn js-copy-email"><span class="icon '+escapeHTML(btn.icon||'mail')+'" aria-hidden="true"></span> '+escapeHTML(btn.label||'Copy Email')+'</button>';
+    } else if (btn.type === 'mailto'){
+      return '<a class="btn" href="mailto:'+email+'"><span class="icon '+escapeHTML(btn.icon||'mail')+'" aria-hidden="true"></span> '+escapeHTML(btn.label||'Email Me')+'</a>';
+    } else if (btn.type === 'link'){
+      var href = links[btn.href_key] || '#';
+      return '<a class="btn" href="'+escapeHTML(href)+'" target="_blank" rel="noopener"><span class="icon '+escapeHTML(btn.icon||'')+'" aria-hidden="true"></span> '+escapeHTML(btn.label||'Open')+'</a>';
+    }
+    return '';
+  }).join('');
 
-  mount.innerHTML = `
-    <p class="lead">${escapeHTML(contact?.cta || 'Reach out by email anytime.')}</p>
-    <div class="row mt-20">${btns.join('')}</div>
-    <p class="muted mt-20">This site ships no trackers; email is lightly obfuscated to reduce scraping.</p>
-  `;
+  el.innerHTML = btns;
 
-  const copy2 = document.getElementById('copyEmailBtn2');
-  if (copy2 && email){
-    copy2.addEventListener('click', async () => {
-      const ok = await copyToClipboard(email);
-      copy2.textContent = ok ? 'Copied!' : 'Copy failed';
-      copy2.style.borderColor = ok ? 'var(--ok)' : 'var(--warn)';
-      setTimeout(()=>{ copy2.textContent='Copy Email'; copy2.style.borderColor='var(--line)'; }, 1200);
+  // Copy handler
+  var copyBtn = el.querySelector('.js-copy-email');
+  if(copyBtn){
+    copyBtn.addEventListener('click', function(e){
+      navigator.clipboard.writeText(email).then(function(){
+        var b = e.currentTarget; var orig = b.textContent;
+        b.textContent = 'Copied!';
+        setTimeout(function(){ b.textContent = orig; }, 1200);
+      });
     });
   }
 }
 
-/* ---------- Bootstrap ---------- */
-(async function init(){
-  try{
-    const data = await loadContent();
-    renderHero(data.profile, data.skills);
-    renderExperience(data.experience);
-    renderProjects(data.projects);
-    renderSkills(data.skills);
-    renderContact(data.profile, data.contact);
-    inViewReveal();
-  }catch(err){
+// ---- Init ----
+window.addEventListener('DOMContentLoaded', function(){
+  setYearNow();
+  initReveal();
+
+  Promise.all([
+    loadJSON('/data/intro.json'),
+    loadJSON('/data/experience.json'),
+    loadJSON('/data/projects.json'),
+    loadJSON('/data/skills.json'),
+    loadJSON('/data/contact.json')
+  ]).then(function(res){
+    var intro=res[0], experience=res[1], projects=res[2], skills=res[3], contact=res[4];
+    renderHero(intro, contact);
+    renderExperience(experience);
+    renderProjects(projects);
+    renderSkills(skills);
+    renderContact(contact);
+  }).catch(function(err){
     console.error(err);
-    // Minimal fallback content if JSON fails
-    const hero = document.getElementById('hero');
-    if (hero) hero.innerHTML = `<p class="muted">Content failed to load.</p>`;
-  }
-})();
+  });
+});
