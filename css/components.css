@@ -4,7 +4,7 @@ header{
   background: color-mix(in srgb, var(--panel), transparent 40%);
   border-bottom:1px solid var(--line);
 }
-.nav{display:flex; align-items:center; justify-content:space-between; height:64px}
+.nav{display:flex; align-items:center; justify-content:space-between; height:64px; flex-wrap:wrap; gap:8px}
 .brand {
   color: var(--text);
   display: flex;
@@ -13,12 +13,8 @@ header{
   font-weight: 700;
   letter-spacing: .3px;
 }
-.brand svg {
-  color: inherit;
-}
-.brand svg path {
-  fill: currentColor !important;
-}
+.brand svg { color: inherit; }
+.brand svg path { fill: currentColor !important; }
 .badge{font-size:12px; color:var(--muted); border:1px solid var(--line); padding:4px 8px; border-radius:999px}
 nav a{color:var(--muted); text-decoration:none; margin:0 10px; font-weight:500}
 nav a:hover{color:var(--text)}
@@ -40,9 +36,14 @@ nav a:hover{color:var(--text)}
 
 /* Sections & Cards */
 section{padding:72px 0; border-bottom:1px solid var(--line)}
-.grid{display:grid; gap:18px}
-@media (min-width:768px){ .grid.cols-2{grid-template-columns:repeat(2, minmax(0,1fr))} }
-@media (min-width:1024px){ .grid.cols-3{grid-template-columns:repeat(3, minmax(0,1fr))} }
+.grid{display:grid; gap:18px; grid-template-columns:1fr;}
+@media (min-width:768px){
+  .grid.cols-2{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .grid.cols-3{grid-template-columns:repeat(2, minmax(0,1fr))} /* 2 cols on tablet */
+}
+@media (min-width:1024px){
+  .grid.cols-3{grid-template-columns:repeat(3, minmax(0,1fr))} /* 3 cols on desktop */
+}
 
 .card{
   background: linear-gradient(180deg, color-mix(in srgb, var(--panel), #000 10%), var(--panel));
@@ -79,18 +80,12 @@ section{padding:72px 0; border-bottom:1px solid var(--line)}
   box-shadow: var(--shadow);
   text-align: center;
 }
-
 .error-box h1 {
-  white-space: nowrap;                  /* always one line */
-  font-size: clamp(20px, 6vw, 48px);    /* responsive sizing */
+  white-space: nowrap;
+  font-size: clamp(20px, 6vw, 48px);
   margin-bottom: 16px;
 }
-
-.error-box p {
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
+.error-box p { color: var(--muted); margin-bottom: 20px; }
 a.back-home {
   text-decoration: none;
   border: 1px solid var(--line);
@@ -100,7 +95,6 @@ a.back-home {
   display: inline-block;
   transition: all var(--speed) ease;
 }
-
 a.back-home:hover {
   background: var(--panel-2);
   border-color: var(--primary);
@@ -108,24 +102,24 @@ a.back-home:hover {
 }
 
 /* --- Hero-only refinements --- */
+#about .tagline{ font-size: clamp(14px, 1.6vw, 20px); font-weight: 600; margin: 6px 0 10px; }
+#about .hero-lead{ max-width: 92ch; }
+#about .hero-chips{ margin-top: 16px; margin-bottom: 24px; }
 
-/* Tagline: smaller, neat line below H1 */
-#about .tagline{
-  font-size: clamp(14px, 1.6vw, 20px);
-  font-weight: 600;
-  margin: 6px 0 10px;
+/* --- Responsive comfort --- */
+/* Buttons row: stack on phones for better tap targets */
+#about .row, #contact .row{ row-gap:10px; }
+@media (max-width:640px){
+  #about .row, #contact .row{ flex-direction:column; align-items:stretch; }
+  #about .row .btn, #contact .row .btn{ width:100%; justify-content:center; }
+  .chip{ font-size:13px; padding:7px 10px; }
+  .card{ padding:16px; border-radius:14px; }
+  nav a{ margin:0 6px; }
 }
 
-/* Summary: allow more width so it wraps less (cleaner block) */
-#about .hero-lead{
-  max-width: 92ch; /* adjust: 88–100ch if you want wider/narrower */
+/* Header nav comfort on very small screens */
+@media (max-width:480px){
+  .nav{ row-gap:6px; }
+  header nav{ width:100%; display:flex; justify-content:space-between; flex-wrap:wrap; }
+  header nav a, header .btn{ padding:8px 10px; font-size:14px; }
 }
-
-/* Chips: add breathing room above the section divider line */
-#about .hero-chips{
-  margin-top: 16px;
-  margin-bottom: 24px; /* this creates the gap you pointed to */
-}
-
-/* (Optional) If the divider still feels close, give the hero more bottom padding */
-/* #about { padding-bottom: 96px; } */
