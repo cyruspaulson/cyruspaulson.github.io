@@ -1,7 +1,7 @@
 // /js/app.js
 
 // ---- Theme toggle (switch) ----
-(function initThemeToggle(){
+function initThemeToggle(){
   var cb  = document.getElementById('themeSwitch');
   var root = document.documentElement;
 
@@ -23,8 +23,7 @@
     else root.removeAttribute('data-theme');
     localStorage.setItem('theme', light ? 'light' : '');
   });
-})();
-
+}
 
 // ---- Renderers ----
 function renderHero(intro, contact){
@@ -156,6 +155,7 @@ function renderContact(contact){
 window.addEventListener('DOMContentLoaded', function(){
   setYearNow();
   initReveal();
+  initThemeToggle();
 
   Promise.all([
     loadJSON('/data/intro.json'),
