@@ -1,21 +1,30 @@
 // /js/app.js
 
-// ---- Theme toggle ----
+// ---- Theme toggle (switch) ----
 (function initThemeToggle(){
-  var btn = document.getElementById('themeToggle');
-  if (!btn) return;
+  var cb  = document.getElementById('themeSwitch');
   var root = document.documentElement;
-  var saved = localStorage.getItem('theme');
-  if (saved) btn.setAttribute('aria-pressed', saved === 'light');
 
-  btn.addEventListener('click', function () {
-    var next = root.getAttribute('data-theme') === 'light' ? '' : 'light';
-    if (next) root.setAttribute('data-theme', next);
+  // Apply saved theme on load
+  var saved = localStorage.getItem('theme'); // "light" or ""
+  if (saved === 'light') {
+    root.setAttribute('data-theme', 'light');
+    if (cb) cb.checked = true;
+  } else {
+    root.removeAttribute('data-theme');
+    if (cb) cb.checked = false;
+  }
+
+  if (!cb) return;
+
+  cb.addEventListener('change', function(){
+    var light = cb.checked;
+    if (light) root.setAttribute('data-theme','light');
     else root.removeAttribute('data-theme');
-    localStorage.setItem('theme', next);
-    btn.setAttribute('aria-pressed', next === 'light');
+    localStorage.setItem('theme', light ? 'light' : '');
   });
 })();
+
 
 // ---- Renderers ----
 function renderHero(intro, contact){
