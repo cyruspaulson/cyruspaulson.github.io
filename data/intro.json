@@ -2,6 +2,6 @@
   "headline": "Gas Turbine Controls",
   "subtitle": "Mark VIe · CIMPLICITY",
   "summary": "I design and optimize control systems for gas turbines and HMI/SCADA (GE Mark VIe, CIMPLICITY), and build tooling that improves reliability and operator experience.",
-  "cvPath": "/cv/Cyrus-Paulson-CV-PUBLIC.pdf",
+  "cvPath": "/assets/Cyrus-Paulson-CV-PUBLIC.pdf",
   "chips": ["GE Mark VIe", "CIMPLICITY", "Commissioning (FAT/SWAT)", "AHK", "VBA"]
 }
