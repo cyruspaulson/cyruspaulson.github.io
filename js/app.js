@@ -95,20 +95,21 @@ function renderCertifications(list){
   var wrap = document.getElementById('certsStack');
   if (!wrap) return;
 
-  function chipHTML(c, isLink){
+  function certChip(c){
     var label = escapeHTML(c.label || '');
-    var issuer = c.issuer ? escapeHTML(c.issuer) : '';
-    var date = c.date ? escapeHTML(c.date) : '';
-    var meta = [issuer, date].filter(Boolean).join(' · ');
+    var date  = c.date ? escapeHTML(c.date) : '';
     var inner =
       '<span class="label">'+label+'</span>'+
-      (meta ? '<span class="meta">'+meta+'</span>' : '');
+      (date ? '<span class="meta">'+date+'</span>' : '');
 
-    if (isLink){
-      return '<a class="chip chip-cert" href="'+escapeHTML(c.url)+'" target="_blank" rel="noopener">'+inner+'</a>';
+    if (c.url && c.url.trim()){
+      return '<a class="chip chip-cert" href="'+escapeHTML(c.url)+'" target="_blank" rel="noopener" aria-label="'+label+(date?(' ('+date+')'):'')+'">'+inner+'</a>';
     }
-    return '<span class="chip chip-cert">'+inner+'</span>';
+    return '<span class="chip chip-cert" aria-label="'+label+(date?(' ('+date+')'):'')+'">'+inner+'</span>';
   }
+
+  wrap.innerHTML = (list || []).map(certChip).join('');
+}
 
   wrap.innerHTML = (list || []).map(function(c){
     var hasUrl = c.url && c.url.trim();
