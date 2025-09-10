@@ -102,12 +102,12 @@ a.back-home:hover {
 }
 
 /* --- Hero-only refinements --- */
+#about h1{ font-size: clamp(28px, 6vw, 64px); line-height: 1.12; margin-bottom: 6px; }
 #about .tagline{ font-size: clamp(14px, 1.6vw, 20px); font-weight: 600; margin: 6px 0 10px; }
-#about .hero-lead{ max-width: 92ch; }
-#about .hero-chips{ margin-top: 16px; margin-bottom: 24px; }
+#about .hero-lead{ max-width: 100ch; }             /* wider summary */
+#about .hero-chips{ margin-top: 26px; margin-bottom: 8px; } /* spacing tweak */
 
 /* --- Responsive comfort --- */
-/* Buttons row: stack on phones for better tap targets */
 #about .row, #contact .row{ row-gap:10px; }
 @media (max-width:640px){
   #about .row, #contact .row{ flex-direction:column; align-items:stretch; }
@@ -117,17 +117,14 @@ a.back-home:hover {
   nav a{ margin:0 6px; }
 }
 
-/* Header nav comfort on very small screens */
+/* Header/nav comfort on tiny screens */
 @media (max-width:480px){
   .nav{ row-gap:6px; }
   header nav{ width:100%; display:flex; justify-content:space-between; flex-wrap:wrap; }
   header nav a, header .btn{ padding:8px 10px; font-size:14px; }
 }
 
-/* Buttons that are anchors should never underline */
-a.btn { text-decoration: none; }
-
-/* Certifications: two-line chip */
+/* --- Certifications: two-line chip --- */
 .chip.chip-cert{
   display: inline-flex;
   flex-direction: column;
@@ -136,7 +133,6 @@ a.btn { text-decoration: none; }
   padding: 10px 12px;               /* taller to fit two lines */
   border-radius: 999px;             /* keep the pill look */
 }
-
 .chip.chip-cert .label{ font-size: 14px; }
 .chip.chip-cert .meta{
   display: block;
@@ -144,49 +140,52 @@ a.btn { text-decoration: none; }
   color: var(--muted);
   margin-top: 2px;
 }
-
-/* Linked chips should never underline */
 a.chip, a.chip:hover, a.btn { text-decoration: none; }
-
-/* Slightly tighter on phones */
 @media (max-width: 640px){
   .chip.chip-cert { padding: 9px 10px; }
   .chip.chip-cert .label { font-size: 13.5px; }
   .chip.chip-cert .meta  { font-size: 12px; }
 }
 
-/* Theme toggle switch (nav, right side) */
+/* --- Theme toggle switch (sun/moon) --- */
 .theme-toggle{
-  display:flex; align-items:center; gap:10px; margin-left: 10px;
-  user-select:none;
+  display:flex; align-items:center; gap:10px; margin-left: 10px; user-select:none;
 }
-.theme-toggle .theme-label{ color: var(--muted); font-size: 14px; }
-
-.theme-toggle input{
-  position:absolute; opacity:0; width:0; height:0;
-}
+.theme-toggle input{ position:absolute; opacity:0; width:0; height:0; }
 .theme-toggle .slider{
-  width:46px; height:26px; border-radius:999px;
+  width:54px; height:28px; border-radius:999px;
   background: color-mix(in srgb, var(--panel-2), #000 10%);
   border:1px solid var(--line);
-  display:inline-block; position:relative; transition:background var(--speed) ease, border-color var(--speed) ease;
+  display:inline-flex; align-items:center; justify-content:space-between;
+  padding:0 6px;
+  position:relative;
+  transition:background var(--speed) ease, border-color var(--speed) ease;
 }
 .theme-toggle .slider::before{
   content:""; position:absolute; left:3px; top:3px;
-  width:20px; height:20px; border-radius:50%;
+  width:22px; height:22px; border-radius:50%;
   background: var(--text);
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
   transition: transform var(--speed) ease, background var(--speed) ease;
+}
+.theme-toggle .sun,
+.theme-toggle .moon{
+  width:14px; height:14px; border-radius:50%;
+}
+.theme-toggle .sun{ background: #ffd166; box-shadow: 0 0 8px rgba(255,209,102,.6); }
+.theme-toggle .moon{
+  background: radial-gradient(circle at 6px 6px, #cbd5e1 0 6px, transparent 6px);
+  border: 2px solid #cbd5e1;
+  box-sizing: border-box;
 }
 .theme-toggle input:checked + .slider{
   background: color-mix(in srgb, var(--primary), #000 30%);
   border-color: color-mix(in srgb, var(--primary), white 40%);
 }
 .theme-toggle input:checked + .slider::before{
-  transform: translateX(20px);
-  background: #fff;
+  transform: translateX(26px);
+  background:#fff;
 }
-
-/* Make sure the switch wraps nicely on tiny screens */
-@media (max-width: 480px){
-  .theme-toggle{ margin-left: 0; }
+@media (max-width:480px){
+  .theme-toggle{ margin-left:0; }
 }
