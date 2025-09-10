@@ -71,3 +71,14 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--primary); outline-
 .mt-32{margin-top:32px}
 .mt-48{margin-top:48px}
 .center{text-align:center}
+
+/* --- Responsive container gutters --- */
+@media (max-width:640px){
+  .container{ padding-left:16px; padding-right:16px; }
+}
+@media (min-width:641px) and (max-width:1023px){
+  .container{ padding-left:20px; padding-right:20px; }
+}
+@media (min-width:1024px){
+  .container{ padding-left:24px; padding-right:24px; }
+}
