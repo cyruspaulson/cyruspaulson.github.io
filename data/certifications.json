@@ -1,0 +1,26 @@
+[
+  {
+    "label": "GE Mark VIe Fundamentals",
+    "issuer": "GE Vernova",
+    "date": "Dec, 2023",
+    "url": "https://example.com/verify/mark-vie"
+  },
+  {
+    "label": "CIMPLICITY HMI/SCADA Essentials",
+    "issuer": "GE Vernova",
+    "date": "Mar, 2024",
+    "url": ""
+  },
+  {
+    "label": "ISA Alarm Management (ISA-18.2)",
+    "issuer": "ISA",
+    "date": "Aug, 2024",
+    "url": "https://example.com/verify/isa-18-2"
+  },
+  {
+    "label": "Power Systems Basics",
+    "issuer": "Coursera",
+    "date": "Jan, 2023",
+    "url": "https://coursera.org/verify/ABC123"
+  }
+]
