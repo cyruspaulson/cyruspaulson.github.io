@@ -12,7 +12,7 @@
   --warn:#f59e0b;
   --radius:16px;
   --shadow:0 10px 30px rgba(0,0,0,.25);
-  --maxw:1120px;
+  --maxw:1280px;            /* wider content area */
   --speed:220ms;
 }
 
@@ -56,9 +56,10 @@ h1{font-size:clamp(32px, 4vw, 56px); letter-spacing:.2px}
 h2{font-size:clamp(24px, 2.6vw, 36px)}
 p.lead{font-size:clamp(16px, 2vw, 18px); color:var(--muted); max-width:70ch}
 
-a{color:inherit}
-/* No underlines anywhere (you still have focus-visible outline for a11y) */
-a, a:visited, a:hover, a:active { text-decoration: none; }
+/* Links: no underlines anywhere */
+a, a:visited, a:hover, a:active{ text-decoration:none; color:inherit }
+
+/* Focus styles */
 a:focus-visible, button:focus-visible{outline:2px solid var(--primary); outline-offset:2px; border-radius:10px}
 
 /* Skip link */
@@ -82,5 +83,5 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--primary); outline-
   .container{ padding-left:20px; padding-right:20px; }
 }
 @media (min-width:1024px){
-  .container{ padding-left:24px; padding-right:24px; }
+  .container{ padding-left:16px; padding-right:16px; } /* tighter desktop side padding */
 }
