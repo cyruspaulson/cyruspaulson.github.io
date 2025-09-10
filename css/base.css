@@ -57,6 +57,8 @@ h2{font-size:clamp(24px, 2.6vw, 36px)}
 p.lead{font-size:clamp(16px, 2vw, 18px); color:var(--muted); max-width:70ch}
 
 a{color:inherit}
+/* No underlines anywhere (you still have focus-visible outline for a11y) */
+a, a:visited, a:hover, a:active { text-decoration: none; }
 a:focus-visible, button:focus-visible{outline:2px solid var(--primary); outline-offset:2px; border-radius:10px}
 
 /* Skip link */
