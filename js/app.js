@@ -91,6 +91,20 @@ function renderSkills(groups){
   el.innerHTML = html;
 }
 
+function renderCertifications(list){
+  var wrap = document.getElementById('certsStack');
+  if (!wrap) return;
+  wrap.innerHTML = (list || []).map(function(c){
+    var text = escapeHTML(c.label);
+    var title = [c.issuer, c.date].filter(Boolean).join(' · ');
+    var base = 'class="chip" title="'+escapeHTML(title)+'"';
+    if (c.url && c.url.trim()){
+      return '<a '+base+' href="'+escapeHTML(c.url)+'" target="_blank" rel="noopener">'+text+'</a>';
+    }
+    return '<span '+base+'>'+text+'</span>';
+  }).join('');
+}
+
 function renderContact(contact){
   var el = document.getElementById('contactButtons'); if(!el) return;
   var links = contact.links || {};
