@@ -106,3 +106,26 @@ a.back-home:hover {
   border-color: var(--primary);
   color: var(--primary-2);
 }
+
+/* --- Hero-only refinements --- */
+
+/* Tagline: smaller, neat line below H1 */
+#about .tagline{
+  font-size: clamp(14px, 1.6vw, 20px);
+  font-weight: 600;
+  margin: 6px 0 10px;
+}
+
+/* Summary: allow more width so it wraps less (cleaner block) */
+#about .hero-lead{
+  max-width: 92ch; /* adjust: 88–100ch if you want wider/narrower */
+}
+
+/* Chips: add breathing room above the section divider line */
+#about .hero-chips{
+  margin-top: 16px;
+  margin-bottom: 24px; /* this creates the gap you pointed to */
+}
+
+/* (Optional) If the divider still feels close, give the hero more bottom padding */
+/* #about { padding-bottom: 96px; } */
