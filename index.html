@@ -41,33 +41,38 @@
 <body>
   <a href="#main" class="skip">Skip to content</a>
 
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <!-- File-based logo that inherits currentColor via /css/icons.css -->
-        <span class="icon logo" aria-hidden="true"></span>
-        <span>Cyrus Paulson</span>
-        <span class="badge">Controls Engineer</span>
-      </div>
-      <nav aria-label="Primary">
-  <a href="#about">About</a>
-  <a href="#experience">Experience</a>
-  <a href="#projects">Projects</a>
-  <a href="#skills">Skills</a>
-  <a href="#certifications">Certifications</a>
-  <a href="#contact">Contact</a>
-
-  <!-- Theme toggle switch (right end) -->
-<div class="theme-toggle" title="Toggle light theme">
-  <input type="checkbox" id="themeSwitch" aria-label="Toggle light theme">
-  <span class="slider" aria-hidden="true">
-    <span class="sun" aria-hidden="true"></span>
-    <span class="moon" aria-hidden="true"></span>
-  </span>
-</div>
-</nav>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <!-- keep/replace with your own logo svg -->
+      <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path style="fill:currentColor" d="M12 2l-1.8 2.3C7.4 8.1 2.7 11.6 2.7 11.6v.8S7.4 16.9 10.2 19.7L12 22l1.8-2.3c2.8-2.8 7.5-6.3 7.5-6.3v-.8s-4.7-3.5-7.5-6.3L12 2z"/>
+      </svg>
+      <span>Cyrus Paulson</span>
+      <span class="badge">Controls Engineer</span>
     </div>
-  </header>
+
+    <nav aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- THEME SWITCH: sibling of nav so it’s at far-right -->
+    <label class="theme-toggle" title="Toggle light theme">
+      <input type="checkbox" id="themeSwitch" aria-label="Toggle light theme">
+      <span class="track">
+        <span class="icon sun"  aria-hidden="true"></span>
+        <span class="icon moon" aria-hidden="true"></span>
+        <span class="knob" aria-hidden="true"></span>
+      </span>
+    </label>
+  </div>
+</header>
 
   <main id="main">
     <!-- HERO -->
