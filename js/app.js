@@ -5,14 +5,14 @@ function initThemeToggle(){
   var cb  = document.getElementById('themeSwitch');
   var root = document.documentElement;
 
-  // Apply saved theme on load
+  // Saved theme -> set attribute + checkbox
   var saved = localStorage.getItem('theme'); // "light" or ""
   if (saved === 'light') {
     root.setAttribute('data-theme', 'light');
-    if (cb) cb.checked = true;
+    if (cb) cb.checked = true;     // light = checked = knob left
   } else {
     root.removeAttribute('data-theme');
-    if (cb) cb.checked = false;
+    if (cb) cb.checked = false;    // dark  = unchecked = knob right
   }
 
   if (!cb) return;
