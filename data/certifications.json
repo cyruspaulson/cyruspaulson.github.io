@@ -1,26 +1,52 @@
 [
   {
-    "label": "GE Mark VIe Fundamentals",
-    "issuer": "GE Vernova",
-    "date": "Dec, 2023",
-    "url": "https://example.com/verify/mark-vie"
-  },
-  {
-    "label": "CIMPLICITY HMI/SCADA Essentials",
-    "issuer": "GE Vernova",
-    "date": "Mar, 2024",
+    "label": "Advanced Arduino Course",
+    "date": "Feb 2022",
     "url": ""
   },
   {
-    "label": "ISA Alarm Management (ISA-18.2)",
-    "issuer": "ISA",
-    "date": "Aug, 2024",
-    "url": "https://example.com/verify/isa-18-2"
+    "label": "Basics of Substation Designing",
+    "date": "Oct 2021",
+    "url": ""
   },
   {
-    "label": "Power Systems Basics",
-    "issuer": "Coursera",
-    "date": "Jan, 2023",
-    "url": "https://coursera.org/verify/ABC123"
+    "label": "AutoCAD Certified Professional",
+    "date": "Aug 2021",
+    "url": ""
+  },
+  {
+    "label": "Power Quality Training",
+    "date": "Jan 2021",
+    "url": ""
+  },
+  {
+    "label": "Electric Power Systems",
+    "date": "Apr 2020",
+    "url": ""
+  },
+  {
+    "label": "Energy Production, Distribution & Safety Specialization",
+    "date": "Apr 2020",
+    "url": ""
+  },
+  {
+    "label": "Energy: The Enterprise",
+    "date": "Apr 2020",
+    "url": ""
+  },
+  {
+    "label": "Natural Gas",
+    "date": "Apr 2020",
+    "url": ""
+  },
+  {
+    "label": "Safety in the Utility Industry",
+    "date": "Apr 2020",
+    "url": ""
+  },
+  {
+    "label": "IoT Using Raspberry Pi for Electrical Application",
+    "date": "Nov 2019",
+    "url": ""
   }
 ]
