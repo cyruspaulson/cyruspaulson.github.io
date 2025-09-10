@@ -1,7 +1,7 @@
 {
-  "headline": "Gas Turbine Controls",
-  "subtitle": "Mark VIe · CIMPLICITY",
-  "summary": "I design and optimize control systems for gas turbines and HMI/SCADA (GE Mark VIe, CIMPLICITY), and build tooling that improves reliability and operator experience.",
+  "headline": "Control Systems Engineer",
+  "subtitle": "GE Mark VIe · CIMPLICITY HMI/SCADA · Gas Turbine Controls",
+  "summary": "Controls Engineer with ~2 years’ experience in GE Gas Turbine Controls (Mark VIe, ToolboxST) and CIMPLICITY HMI/SCADA. Hands-on across frames 7FA.05, 6F.03, 9F, HA including SEC projects (Saudi Arabia). Skilled in logic validation, HMI development, and remote commissioning support. Delivered automation tools that reduced engineering effort from ~2 weeks to 1–2 days and improved system reliability.",
   "cvPath": "/assets/Cyrus-Paulson-CV-PUBLIC.pdf",
   "chips": ["GE Mark VIe", "CIMPLICITY", "Commissioning (FAT/SWAT)", "AHK", "VBA"]
 }
