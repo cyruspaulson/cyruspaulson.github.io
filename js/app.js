@@ -1,4 +1,4 @@
-// /js/app.js
+  // /js/app.js
 
 // ---- Theme toggle (kept here as page behavior) ----
 (function initThemeToggle(){
@@ -30,11 +30,11 @@ function renderHero(intro, contact){
   ].join('');
 
   el.innerHTML =
-    '<h1>'+escapeHTML(intro.headline)+'</h1>'+
-    (intro.subtitle ? '<h2 class="muted" style="margin:6px 0 18px">'+escapeHTML(intro.subtitle)+'</h2>' : '')+
-    '<p class="lead">'+escapeHTML(intro.summary)+'</p>'+
-    '<div class="row mt-20">'+buttons+'</div>'+
-    (chips ? '<div class="stack">'+chips+'</div>' : '');
+  '<h1>'+escapeHTML(intro.headline)+'</h1>'+
+  (intro.subtitle ? '<p class="tagline muted">'+escapeHTML(intro.subtitle)+'</p>' : '')+
+  '<p class="lead hero-lead">'+escapeHTML(intro.summary)+'</p>'+
+  '<div class="row mt-20">'+buttons+'</div>'+
+  (chips ? '<div class="stack hero-chips">'+chips+'</div>' : '');
 
   // Copy handler
   var copyBtn = document.getElementById('copyEmail');
