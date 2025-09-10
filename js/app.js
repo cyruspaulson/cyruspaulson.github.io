@@ -147,13 +147,15 @@ window.addEventListener('DOMContentLoaded', function(){
     loadJSON('/data/experience.json'),
     loadJSON('/data/projects.json'),
     loadJSON('/data/skills.json'),
-    loadJSON('/data/contact.json')
+    loadJSON('/data/contact.json'),
+    loadJSON('/data/certifications.json')
   ]).then(function(res){
-    var intro=res[0], experience=res[1], projects=res[2], skills=res[3], contact=res[4];
+    var intro=res[0], experience=res[1], projects=res[2], skills=res[3], contact=res[4], certs=res[5];
     renderHero(intro, contact);
     renderExperience(experience);
     renderProjects(projects);
     renderSkills(skills);
+    renderCertifications(certs);
     renderContact(contact);
   }).catch(function(err){
     console.error(err);
