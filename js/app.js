@@ -94,14 +94,25 @@ function renderSkills(groups){
 function renderCertifications(list){
   var wrap = document.getElementById('certsStack');
   if (!wrap) return;
-  wrap.innerHTML = (list || []).map(function(c){
-    var text = escapeHTML(c.label);
-    var title = [c.issuer, c.date].filter(Boolean).join(' · ');
-    var base = 'class="chip" title="'+escapeHTML(title)+'"';
-    if (c.url && c.url.trim()){
-      return '<a '+base+' href="'+escapeHTML(c.url)+'" target="_blank" rel="noopener">'+text+'</a>';
+
+  function chipHTML(c, isLink){
+    var label = escapeHTML(c.label || '');
+    var issuer = c.issuer ? escapeHTML(c.issuer) : '';
+    var date = c.date ? escapeHTML(c.date) : '';
+    var meta = [issuer, date].filter(Boolean).join(' · ');
+    var inner =
+      '<span class="label">'+label+'</span>'+
+      (meta ? '<span class="meta">'+meta+'</span>' : '');
+
+    if (isLink){
+      return '<a class="chip chip-cert" href="'+escapeHTML(c.url)+'" target="_blank" rel="noopener">'+inner+'</a>';
     }
-    return '<span '+base+'>'+text+'</span>';
+    return '<span class="chip chip-cert">'+inner+'</span>';
+  }
+
+  wrap.innerHTML = (list || []).map(function(c){
+    var hasUrl = c.url && c.url.trim();
+    return chipHTML(c, !!hasUrl);
   }).join('');
 }
 
