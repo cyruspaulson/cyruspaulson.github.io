@@ -1,6 +1,6 @@
-  // /js/app.js
+// /js/app.js
 
-// ---- Theme toggle (kept here as page behavior) ----
+// ---- Theme toggle ----
 (function initThemeToggle(){
   var btn = document.getElementById('themeToggle');
   if (!btn) return;
@@ -30,11 +30,11 @@ function renderHero(intro, contact){
   ].join('');
 
   el.innerHTML =
-  '<h1>'+escapeHTML(intro.headline)+'</h1>'+
-  (intro.subtitle ? '<p class="tagline muted">'+escapeHTML(intro.subtitle)+'</p>' : '')+
-  '<p class="lead hero-lead">'+escapeHTML(intro.summary)+'</p>'+
-  '<div class="row mt-20">'+buttons+'</div>'+
-  (chips ? '<div class="stack hero-chips">'+chips+'</div>' : '');
+    '<h1>'+escapeHTML(intro.headline)+'</h1>'+
+    (intro.subtitle ? '<p class="tagline muted">'+escapeHTML(intro.subtitle)+'</p>' : '')+
+    '<p class="lead hero-lead">'+escapeHTML(intro.summary)+'</p>'+
+    '<div class="row mt-20">'+buttons+'</div>'+
+    (chips ? '<div class="stack hero-chips">'+chips+'</div>' : '');
 
   // Copy handler
   var copyBtn = document.getElementById('copyEmail');
@@ -55,7 +55,7 @@ function renderExperience(items){
     return [
       '<article class="card">',
         '<h3>'+escapeHTML(job.role)+(job.company ? ' - '+escapeHTML(job.company) : '')+'</h3>',
-        '<p class="muted">'+fmtDate(job.start)+' – '+fmtDate(job.end)+' · '+escapeHTML(job.location||'')+'</p>',
+        '<p class="muted">'+fmtDate(job.start)+' - '+fmtDate(job.end)+' · '+escapeHTML(job.location||'')+'</p>',
         (job.summary ? '<p>'+escapeHTML(job.summary)+'</p>' : ''),
         (Array.isArray(job.highlights)? '<ul>'+job.highlights.map(function(h){return '<li>'+escapeHTML(h)+'</li>';}).join('')+'</ul>' : ''),
         (Array.isArray(job.tags)? '<div class="stack">'+job.tags.map(function(t){return '<span class="chip">'+escapeHTML(t)+'</span>';}).join('')+'</div>' : ''),
@@ -109,12 +109,6 @@ function renderCertifications(list){
   }
 
   wrap.innerHTML = (list || []).map(certChip).join('');
-}
-
-  wrap.innerHTML = (list || []).map(function(c){
-    var hasUrl = c.url && c.url.trim();
-    return chipHTML(c, !!hasUrl);
-  }).join('');
 }
 
 function renderContact(contact){
