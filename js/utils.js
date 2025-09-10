@@ -1,47 +1,49 @@
-// Year in footer
-(function setYear(){ const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear(); })();
+// /js/utils.js
 
-// Theme toggle with localStorage
-(function themeToggle(){
-  const btn = document.getElementById('themeToggle'); if (!btn) return;
-  const root = document.documentElement;
-  const saved = localStorage.getItem('theme');
-  if (saved) root.setAttribute('data-theme', saved);
-  btn.setAttribute('aria-pressed', saved === 'light' ? 'true' : 'false');
-  btn.addEventListener('click', () => {
-    const next = root.getAttribute('data-theme') === 'light' ? '' : 'light';
-    if (next) root.setAttribute('data-theme', next); else root.removeAttribute('data-theme');
-    localStorage.setItem('theme', next);
-    btn.setAttribute('aria-pressed', next === 'light' ? 'true' : 'false');
+// Shorthands
+var $  = function(sel, root){ return (root||document).querySelector(sel); };
+var $$ = function(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); };
+
+// HTML escape (safety)
+function escapeHTML(s){ 
+  s = (s==null?'':String(s));
+  return s.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]); });
+}
+
+// YYYY-MM -> "Mon YYYY" | null -> "Present"
+function fmtDate(ym){
+  if (!ym) return 'Present';
+  var parts = String(ym).split('-');
+  var y = parseInt(parts[0],10) || 1970;
+  var m = (parseInt(parts[1],10) || 1) - 1;
+  var d = new Date(y, m, 1);
+  return d.toLocaleString(undefined, { month:'short', year:'numeric' });
+}
+
+// Base64 helpers for email
+function b64(s){ try { return atob(s); } catch(e){ return ''; } }
+function assembleEmail(obj){ return obj ? (b64(obj.local_b64) + '@' + b64(obj.domain_b64)) : ''; }
+
+// Fetch JSON (no-cache so edits show up immediately)
+function loadJSON(path){
+  return fetch(path, { cache:'no-cache' }).then(function(res){
+    if(!res.ok) throw new Error('Failed to load '+path);
+    return res.json();
   });
-})();
-
-// Minimal HTML escape for text nodes
-export function escapeHTML(str=''){
-  return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
 }
 
-// Base64 decode
-export function decodeB64(b){ try { return atob(b || ''); } catch { return ''; } }
-
-// Format "YYYY-MM" or "present"
-export function formatDate(s){
-  if (!s) return '';
-  if (s.toLowerCase && s.toLowerCase() === 'present') return 'Present';
-  const [y,m] = s.split('-'); const date = new Date(Number(y), Number(m||'1')-1, 1);
-  return date.toLocaleString(undefined, { month:'short', year:'numeric' });
+// Intersection-based reveal
+function initReveal(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced){ $$('.reveal').forEach(function(el){ el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:0.12});
+  $$('.reveal').forEach(function(el){ io.observe(el); });
 }
 
-// IntersectionObserver reveal
-export function inViewReveal(){
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced){ document.querySelectorAll('.reveal').forEach(el => el.classList.add('in')); return; }
-  if (!('IntersectionObserver' in window)){ document.querySelectorAll('.reveal').forEach(el => el.classList.add('in')); return; }
-  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } }), {threshold:0.12});
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-}
-
-// Copy helper
-export async function copyToClipboard(text){
-  try { await navigator.clipboard.writeText(text); return true; } catch { return false; }
+// Footer year
+function setYearNow(){
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
 }
