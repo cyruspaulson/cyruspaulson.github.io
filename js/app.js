@@ -54,7 +54,7 @@ function renderExperience(items){
   el.innerHTML = (items||[]).map(function(job){
     return [
       '<article class="card">',
-        '<h3>'+escapeHTML(job.role)+(job.company ? ' — '+escapeHTML(job.company) : '')+'</h3>',
+        '<h3>'+escapeHTML(job.role)+(job.company ? ' - '+escapeHTML(job.company) : '')+'</h3>',
         '<p class="muted">'+fmtDate(job.start)+' – '+fmtDate(job.end)+' · '+escapeHTML(job.location||'')+'</p>',
         (job.summary ? '<p>'+escapeHTML(job.summary)+'</p>' : ''),
         (Array.isArray(job.highlights)? '<ul>'+job.highlights.map(function(h){return '<li>'+escapeHTML(h)+'</li>';}).join('')+'</ul>' : ''),
