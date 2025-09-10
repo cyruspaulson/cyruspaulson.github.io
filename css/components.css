@@ -154,3 +154,39 @@ a.chip, a.chip:hover, a.btn { text-decoration: none; }
   .chip.chip-cert .label { font-size: 13.5px; }
   .chip.chip-cert .meta  { font-size: 12px; }
 }
+
+/* Theme toggle switch (nav, right side) */
+.theme-toggle{
+  display:flex; align-items:center; gap:10px; margin-left: 10px;
+  user-select:none;
+}
+.theme-toggle .theme-label{ color: var(--muted); font-size: 14px; }
+
+.theme-toggle input{
+  position:absolute; opacity:0; width:0; height:0;
+}
+.theme-toggle .slider{
+  width:46px; height:26px; border-radius:999px;
+  background: color-mix(in srgb, var(--panel-2), #000 10%);
+  border:1px solid var(--line);
+  display:inline-block; position:relative; transition:background var(--speed) ease, border-color var(--speed) ease;
+}
+.theme-toggle .slider::before{
+  content:""; position:absolute; left:3px; top:3px;
+  width:20px; height:20px; border-radius:50%;
+  background: var(--text);
+  transition: transform var(--speed) ease, background var(--speed) ease;
+}
+.theme-toggle input:checked + .slider{
+  background: color-mix(in srgb, var(--primary), #000 30%);
+  border-color: color-mix(in srgb, var(--primary), white 40%);
+}
+.theme-toggle input:checked + .slider::before{
+  transform: translateX(20px);
+  background: #fff;
+}
+
+/* Make sure the switch wraps nicely on tiny screens */
+@media (max-width: 480px){
+  .theme-toggle{ margin-left: 0; }
+}
