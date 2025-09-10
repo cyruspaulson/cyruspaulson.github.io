@@ -1,1 +1,15 @@
-/** This is for icons used here*/
+/* /css/icons.css */
+.icon{
+  display:inline-block; width:28px; height:28px; vertical-align:middle;
+  background-color:currentColor;
+  -webkit-mask-size:contain; -webkit-mask-repeat:no-repeat; -webkit-mask-position:center;
+          mask-size:contain;         mask-repeat:no-repeat;         mask-position:center;
+}
+.icon.logo     { -webkit-mask-image:url("/assets/icons/logo.svg");     mask-image:url("/assets/icons/logo.svg"); }
+.icon.linkedin { -webkit-mask-image:url("/assets/icons/linkedin.svg"); mask-image:url("/assets/icons/linkedin.svg"); }
+.icon.github   { -webkit-mask-image:url("/assets/icons/github.svg");   mask-image:url("/assets/icons/github.svg"); }
+.icon.mail     { -webkit-mask-image:url("/assets/icons/mail.svg");     mask-image:url("/assets/icons/mail.svg"); }
+.icon.whatsapp { -webkit-mask-image:url("/assets/icons/whatsapp.svg"); mask-image:url("/assets/icons/whatsapp.svg"); }
+
+/* Smaller inside buttons */
+.btn .icon{ width:16px; height:16px; margin-right:8px; }
