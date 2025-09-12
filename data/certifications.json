@@ -1,51 +1,61 @@
 [
   {
     "label": "Advanced Arduino Course",
+    "issuer": "Pantech ProED Pvt Ltd",
     "date": "Feb 2022",
     "url": ""
   },
   {
     "label": "Basics of Substation Designing",
+    "issuer": "Nexora Academy",
     "date": "Oct 2021",
     "url": ""
   },
   {
     "label": "AutoCAD Certified Professional",
+    "issuer": "Autodesk",
     "date": "Aug 2021",
-    "url": ""
+    "url": "https://www.coursera.org/account/accomplishments/certificate/76SLXAXY27SZ"
   },
   {
     "label": "Power Quality Training",
+    "issuer": "Gossen Metrawatt",
     "date": "Jan 2021",
     "url": ""
   },
   {
     "label": "Electric Power Systems",
+    "issuer": "University at Buffalo, The State University of New York",
     "date": "Apr 2020",
-    "url": ""
+    "url": "https://www.coursera.org/account/accomplishments/certificate/5YTR29A8XQEY"
   },
   {
     "label": "Energy Production, Distribution & Safety Specialization",
+    "issuer": "University at Buffalo, The State University of New York",
     "date": "Apr 2020",
-    "url": ""
+    "url": "https://www.coursera.org/account/accomplishments/specialization/certificate/LGUQFLHLHW2R"
   },
   {
     "label": "Energy: The Enterprise",
+    "issuer": "University at Buffalo, The State University of New York",
     "date": "Apr 2020",
-    "url": ""
+    "url": "https://www.coursera.org/account/accomplishments/certificate/RK7XUFZDKUJ8"
   },
   {
     "label": "Natural Gas",
+    "issuer": "University at Buffalo, The State University of New York",
     "date": "Apr 2020",
-    "url": ""
+    "url": "https://www.coursera.org/account/accomplishments/certificate/A7SC358TXP5V"
   },
   {
     "label": "Safety in the Utility Industry",
+    "issuer": "University at Buffalo, The State University of New York",
     "date": "Apr 2020",
-    "url": ""
+    "url": "https://www.coursera.org/account/accomplishments/certificate/98WY9UAMZWVP"
   },
   {
     "label": "IoT Using Raspberry Pi for Electrical Application",
+    "issuer": "Pantech ProED Pvt Ltd",
     "date": "Nov 2019",
     "url": ""
   }
