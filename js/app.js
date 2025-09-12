@@ -2,75 +2,140 @@
 
 // ---- Theme toggle (switch) ----
 function initThemeToggle(){
-  var cb  = document.getElementById('themeSwitch');
   var root = document.documentElement;
+  var btn  = document.getElementById('themeBtn');
 
-  // Saved theme -> set attribute + checkbox
-  var saved = localStorage.getItem('theme'); // "light" or ""
-  if (saved === 'light') {
-    root.setAttribute('data-theme', 'light');
-    if (cb) cb.checked = true;     // light = checked = knob left
-  } else {
-    root.removeAttribute('data-theme');
-    if (cb) cb.checked = false;    // dark  = unchecked = knob right
-  }
+  // Decide initial theme: saved -> system -> dark
+  var saved = localStorage.getItem('theme');  // "light" or ""
+  var initial = (saved !== null)
+    ? saved
+    : (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : '');
 
-  if (!cb) return;
+  apply(initial);
 
-  cb.addEventListener('change', function(){
-    var light = cb.checked;
-    if (light) root.setAttribute('data-theme','light');
-    else root.removeAttribute('data-theme');
-    localStorage.setItem('theme', light ? 'light' : '');
+  if (!btn) return;
+  btn.addEventListener('click', function(){
+    var next = root.getAttribute('data-theme') === 'light' ? '' : 'light';
+    apply(next);
   });
+
+  function apply(mode){
+    if (mode === 'light') {
+      root.setAttribute('data-theme','light');
+      localStorage.setItem('theme','light');
+      btn && btn.setAttribute('aria-label','Switch to dark theme');
+    } else {
+      root.removeAttribute('data-theme');
+      localStorage.setItem('theme','');
+      btn && btn.setAttribute('aria-label','Switch to light theme');
+    }
+  }
 }
 
 // ---- Renderers ----
-function renderHero(intro, contact){
-  var el = document.getElementById('hero'); if(!el) return;
-  var email = assembleEmail(contact.email);
-  var chips = (intro.chips||[]).map(function(c){ return '<span class="chip">'+escapeHTML(c)+'</span>'; }).join('');
 
-  var buttons = [
-    '<a class="btn primary" href="'+escapeHTML(intro.cvPath)+'" target="_blank" rel="noopener"><span class="icon mail" aria-hidden="true"></span> Download CV</a>',
-    '<button class="btn" id="copyEmail"><span class="icon mail" aria-hidden="true"></span> Copy Email</button>',
-    '<a class="btn" id="mailLink" href="mailto:'+email+'"><span class="icon mail" aria-hidden="true"></span> Email Me</a>'
+// ---- Render hero (top section) ----
+function renderHero(intro, contact){
+  var el = document.getElementById('hero');
+  if (!el || !intro) return;
+
+  // email (obfuscated in contact.json)
+  var email = contact && contact.email ? assembleEmail(contact.email) : '';
+
+  // chips
+  var chipsHtml = (intro.chips || [])
+    .map(function(c){ return '<span class="chip">'+escapeHTML(c)+'</span>'; })
+    .join('');
+
+  // CTA buttons (Primary = CV, Ghost = Copy, Outline = Email)
+    var buttonsHtml = [
+    // 1) Email Me — primary (solid)
+    (email ? [
+      '<a class="btn primary hero-cta" id="mailLink" href="mailto:'+email+'">',
+        '<span class="icon mail" aria-hidden="true"></span>',
+        '<span class="btn-label">Email Me</span>',
+      '</a>'
+    ].join('') : ''),
+
+    // 2) CV (PDF) — outline pill
+    '<a class="btn outline hero-cta" href="'+escapeHTML(intro.cvPath)+'" target="_blank" rel="noopener">',
+      '<span class="icon download" aria-hidden="true"></span>',
+      '<span class="btn-label">CV (PDF)</span>',
+    '</a>',
+
+    // 3) Copy Email — ghost icon button
+    (email ? [
+      '<button class="btn ghost hero-cta" id="copyEmail">',
+        '<span class="icon copy" aria-hidden="true"></span>',
+        '<span class="btn-label">Copy Email</span>',
+      '</button>'
+    ].join('') : '')
   ].join('');
 
+  // Inject
   el.innerHTML =
-    '<h1>'+escapeHTML(intro.headline)+'</h1>'+
-    (intro.subtitle ? '<p class="tagline muted">'+escapeHTML(intro.subtitle)+'</p>' : '')+
-    '<p class="lead hero-lead">'+escapeHTML(intro.summary)+'</p>'+
-    '<div class="row mt-20">'+buttons+'</div>'+
-    (chips ? '<div class="stack hero-chips">'+chips+'</div>' : '');
+    '<h1>'+escapeHTML(intro.headline)+'</h1>' +
+    (intro.subtitle ? '<p class="tagline muted">'+escapeHTML(intro.subtitle)+'</p>' : '') +
+    '<p class="lead hero-lead">'+escapeHTML(intro.summary)+'</p>' +
+    '<div class="row mt-20">'+ buttonsHtml +'</div>' +
+    (chipsHtml ? '<div class="stack hero-chips">'+ chipsHtml +'</div>' : '');
 
   // Copy handler
   var copyBtn = document.getElementById('copyEmail');
-  if(copyBtn){
+  if (copyBtn && email){
     copyBtn.addEventListener('click', function(e){
       navigator.clipboard.writeText(email).then(function(){
-        var b = e.currentTarget;
-        b.textContent = 'Copied!';
-        setTimeout(function(){ b.innerHTML = '<span class="icon mail" aria-hidden="true"></span> Copy Email'; }, 1200);
+        var label = e.currentTarget.querySelector('.btn-label');
+        if (label) {
+          label.textContent = 'Copied!';
+          setTimeout(function(){ label.textContent = 'Copy Email'; }, 1200);
+        }
       });
     });
   }
 }
 
+
 function renderExperience(items){
   var el = document.getElementById('experienceGrid'); if(!el) return;
-  el.innerHTML = (items||[]).map(function(job){
+
+  el.innerHTML = (items || []).map(function(job){
     return [
       '<article class="card">',
-        '<h3>'+escapeHTML(job.role)+(job.company ? ' - '+escapeHTML(job.company) : '')+'</h3>',
-        '<p class="muted">'+fmtDate(job.start)+' - '+fmtDate(job.end)+' · '+escapeHTML(job.location||'')+'</p>',
-        (job.summary ? '<p>'+escapeHTML(job.summary)+'</p>' : ''),
-        (Array.isArray(job.highlights)? '<ul>'+job.highlights.map(function(h){return '<li>'+escapeHTML(h)+'</li>';}).join('')+'</ul>' : ''),
-        (Array.isArray(job.tags)? '<div class="stack">'+job.tags.map(function(t){return '<span class="chip">'+escapeHTML(t)+'</span>';}).join('')+'</div>' : ''),
-      '</article>'
+
+        // role
+        '<h3>' + escapeHTML(job.role || '') + '</h3>' +
+
+        // company • location (single line under role)
+        ((job.company || job.location)
+          ? '<p class="meta-line">' +
+              (job.company ? '<span class="company"><em>' + escapeHTML(job.company) + '</em></span>' : '') +
+              (job.company && job.location ? '<span class="dot"> · </span>' : '') +
+              (job.location ? '<span class="location">' + escapeHTML(job.location) + '</span>' : '') +
+            '</p>'
+          : '')
+
+        // dates line
+        + '<p class="dates">' + fmtDate(job.start) + ' - ' + fmtDate(job.end) + '</p>'
+
+        // optional one-line blurb
+        + (job.summary ? '<p class="role-blurb">' + escapeHTML(job.summary) + '</p>' : '')
+
+        // highlights (bullets)
+        + (Array.isArray(job.highlights)
+            ? '<ul>' + job.highlights.map(function(h){ return '<li>' + escapeHTML(h) + '</li>'; }).join('') + '</ul>'
+            : '')
+
+        // tags as chips
+        + (Array.isArray(job.tags)
+            ? '<div class="stack">' + job.tags.map(function(t){ return '<span class="chip">' + escapeHTML(t) + '</span>'; }).join('') + '</div>'
+            : '')
+
+      + '</article>'
     ].join('');
   }).join('');
 }
+
 
 function renderProjects(items){
   var el = document.getElementById('projectsGrid'); if(!el) return;
@@ -99,24 +164,31 @@ function renderSkills(groups){
   el.innerHTML = html;
 }
 
-function renderCertifications(list){
-  var wrap = document.getElementById('certsStack');
-  if (!wrap) return;
+function renderCertifications(items){
+  var el = document.getElementById('certificationsGrid');
+  if (!el) return;
 
-  function certChip(c){
-    var label = escapeHTML(c.label || '');
-    var date  = c.date ? escapeHTML(c.date) : '';
+  var list = Array.isArray(items) ? items : [];
+
+  el.innerHTML = list.map(function(c){
+    var title   = c.label ? escapeHTML(c.label) : '';
+    var issuer  = c.issuer ? escapeHTML(c.issuer) : '';          // optional in your JSON
+    var date    = c.date   ? escapeHTML(c.date)   : '';
+    var url     = c.url    ? String(c.url)        : '';
+
     var inner =
-      '<span class="label">'+label+'</span>'+
-      (date ? '<span class="meta">'+date+'</span>' : '');
+      '<div class="cert-title">' + title + '</div>' +
+      (issuer ? '<div class="cert-issuer">' + issuer + '</div>' : '') +
+      (date   ? '<div class="cert-date">'   + date   + '</div>' : '');
 
-    if (c.url && c.url.trim()){
-      return '<a class="chip chip-cert" href="'+escapeHTML(c.url)+'" target="_blank" rel="noopener" aria-label="'+label+(date?(' ('+date+')'):'')+'">'+inner+'</a>';
+    if (url) {
+      // Clickable card
+      return '<a class="cert-card" href="' + url + '" target="_blank" rel="noopener">' + inner + '</a>';
+    } else {
+      // Static card
+      return '<div class="cert-card">' + inner + '</div>';
     }
-    return '<span class="chip chip-cert" aria-label="'+label+(date?(' ('+date+')'):'')+'">'+inner+'</span>';
-  }
-
-  wrap.innerHTML = (list || []).map(certChip).join('');
+  }).join('');
 }
 
 function renderContact(contact){
