@@ -10,6 +10,8 @@
 .icon.github   { -webkit-mask-image:url("/assets/icons/github.svg");   mask-image:url("/assets/icons/github.svg"); }
 .icon.mail     { -webkit-mask-image:url("/assets/icons/mail.svg");     mask-image:url("/assets/icons/mail.svg"); }
 .icon.whatsapp { -webkit-mask-image:url("/assets/icons/whatsapp.svg"); mask-image:url("/assets/icons/whatsapp.svg"); }
+.icon.copy { -webkit-mask-image:url("/assets/icons/copy.svg"); mask-image:url("/assets/icons/copy.svg"); }
+.icon.download { -webkit-mask-image:url("/assets/icons/download.svg"); mask-image:url("/assets/icons/download.svg"); }
 
 /* Smaller inside buttons */
 .btn .icon{ width:16px; height:16px; margin-right:8px; }
