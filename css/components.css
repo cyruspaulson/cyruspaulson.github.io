@@ -342,3 +342,120 @@ html[data-theme="light"]         .theme-btn .moon{ display:block; } /* light -> 
   #about .row{ flex-direction:column; align-items:stretch; row-gap:10px; }
   #about .row .hero-cta{ width:100%; height:40px; }
 }
+
+/* === Hero icon tiles (minimal) === */
+
+/* --- Overlay the resume file size without affecting layout --- */
+.tile { position: relative; }                /* allow absolute children when needed */
+
+.tile.resume .meta-overlay{
+  position: absolute;
+  /* Center under the title (which we keep in the grid’s second row) */
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* Vertical placement: just below the label, still inside the tile */
+  /* Adjust this number to nudge up/down to your taste */
+  top: 73px;
+
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1;
+  margin: 0;
+  pointer-events: none;                      /* never blocks clicks on the tile */
+}
+
+/* Light theme slight raise in contrast (optional) */
+[data-theme="light"] .tile.resume .meta-overlay{
+  color: color-mix(in srgb, var(--muted), #000 20%);
+}
+
+/* Mobile tweak: bring size a bit closer so it stays inside shorter tiles */
+@media (max-width: 640px){
+  .tile.resume .meta-overlay{ top: 60px; }
+}
+
+.hero-actions{
+  display:flex;
+  align-items:flex-end;   /* align all tiles on the same baseline */
+  gap:14px;
+  margin-top:10px;        /* reduce purple space a bit */
+  margin-left:0px;       /* nudge the whole row left */
+}
+
+/* Equal, smaller tiles */
+.tile{
+  width:132px;
+  height:92px;
+  font: inherit;
+  color: var(--text);
+  border-radius:12px;
+  border:1px solid transparent;
+  background:transparent;
+  text-decoration:none;
+
+  /* center the whole group */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;               /* space between icon, title, meta */
+  padding:8px 6px;
+
+  transition:
+    transform var(--speed) ease,
+    box-shadow var(--speed) ease,
+    border-color var(--speed) ease,
+    background var(--speed) ease;
+}
+
+.tile .icon{
+  width:26px; height:26px;
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+  opacity:.95;
+}
+
+.tile .title{
+  font-size:14px;
+  font-weight:400;     /* keep all three consistent */
+  line-height:1.2;
+}
+
+.tile .meta{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:-2px;     /* tiny tuck if you like */
+}
+
+.tile:hover{ background: var(--panel-2); color: var(--text); }
+.tile:active{
+  transform: translateY(0);
+  /* pressed look: slightly stronger ring */
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary), white 55%);
+}
+
+/* “Copied!” success pulse */
+.tile.success{
+  background: color-mix(in srgb, var(--ok), #000 85%);
+  border-color: color-mix(in srgb, var(--ok), white 45%);
+  box-shadow: inset 0 0 0 2px rgba(34,197,94,.55);
+}
+
+/* Light theme touch */
+[data-theme="light"] .tile:hover{
+  background: color-mix(in srgb, var(--panel-2), white 70%);
+  border-color: color-mix(in srgb, var(--primary), #000 30%);
+}
+
+/* Mobile: stack and keep equality */
+@media (max-width:640px){
+  .hero-actions{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+    margin-left:0;        /* don’t nudge on small screens */
+  }
+  .tile{ width:160px; }   /* slightly wider so labels never wrap */
+}
