@@ -1,17 +1,17 @@
 [
   {
-    "name": "HMI Alarm Rationalization",
-    "blurb": "Reduced alarm floods by grouping and prioritizing events.",
-    "tags": ["CIMPLICITY", "ISA-18.2"]
+    "name": "Speed Control of Single-Phase Induction Motor using Arduino",
+    "blurb": "Developed an Arduino-based motor controller using V/f method and SPWM signals for efficient speed regulation. Designed complete prototype including simulation, documentation, and testing as team lead.",
+    "tags": ["Arduino", "Motor Control", "Embedded Systems", "Power Electronics", "3D Modelling", "Team Leadership", "Documentation"]
   },
   {
-    "name": "Mark VIe Logic Tuning",
-    "blurb": "Reviewed permissives and interlocks; cut nuisance trips.",
-    "tags": ["Mark VIe", "Reliability"]
+    "name": "Secret Knock Detecting Door Lock",
+    "blurb": "Created a security lock system using Arduino and piezo sensor to recognize knock patterns. Designed customizable access logic, built prototype hardware, and led implementation as team lead.",
+    "tags": ["Embedded Systems", "Security Systems", "Hardware Prototyping", "3D Modelling", "Simulation", "Team Lead"]
   },
   {
-    "name": "Maintenance Toolkit",
-    "blurb": "Automated log parsing and report generation.",
-    "tags": ["AHK", "PowerShell", "Excel"]
+    "name": "Automatic Water Level Controller - IoT & Embedded Control",
+    "blurb": "Built a fail-safe embedded control system for water tanks using ESP32 with ultrasonic and float sensors for redundancy. Implemented manual/auto control modes, safety interlocks, and relay-contactor motor control. Integrated a local HMI with display and indicators, plus an Android app for monitoring and control.",
+    "tags": ["ESP32", "IoT", "Embedded C", "HMI Development", "Sensor Integration", "Safety Interlocks"]
   }
 ]

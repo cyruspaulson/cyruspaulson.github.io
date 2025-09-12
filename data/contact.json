@@ -3,12 +3,14 @@
   "email": { "local_b64": "bWFpbA==", "domain_b64": "Y3lydXNwYXVsc29uLmNvbQ==" },
   "links": {
     "linkedin": "https://www.linkedin.com/in/cyrus-paulson/",
-    "github": "https://github.com/cyruspaulson"
+    "github": "https://github.com/cyruspaulson",
+    "whatsapp": "http://wa.me/+919645186635"
   },
   "primary_buttons": [
     { "type": "copy-email", "label": "Copy Email", "icon": "copy" },
     { "type": "mailto", "label": "Email Me", "icon": "mail" },
     { "type": "link", "label": "LinkedIn", "href_key": "linkedin", "icon": "linkedin" },
+    { "type": "link", "label": "WhatsApp", "href_key": "whatsapp", "icon": "whatsapp" },
     { "type": "link", "label": "GitHub", "href_key": "github", "icon": "github" }
   ]
 }
