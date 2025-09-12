@@ -42,59 +42,67 @@ function renderHero(intro, contact){
   // email (obfuscated in contact.json)
   var email = contact && contact.email ? assembleEmail(contact.email) : '';
 
-  // chips
+  // chips row
   var chipsHtml = (intro.chips || [])
     .map(function(c){ return '<span class="chip">'+escapeHTML(c)+'</span>'; })
     .join('');
 
-  // CTA buttons (Primary = CV, Ghost = Copy, Outline = Email)
-    var buttonsHtml = [
-    // 1) Email Me — primary (solid)
-    (email ? [
-      '<a class="btn primary hero-cta" id="mailLink" href="mailto:'+email+'">',
-        '<span class="icon mail" aria-hidden="true"></span>',
-        '<span class="btn-label">Email Me</span>',
-      '</a>'
-    ].join('') : ''),
+  // optional file size under Resume tile (put "cvSize" in intro.json if you want it)
+  var cvSizeText = intro.cvSize ? escapeHTML(intro.cvSize) : "";
 
-    // 2) CV (PDF) — outline pill
-    '<a class="btn outline hero-cta" href="'+escapeHTML(intro.cvPath)+'" target="_blank" rel="noopener">',
-      '<span class="icon download" aria-hidden="true"></span>',
-      '<span class="btn-label">CV (PDF)</span>',
-    '</a>',
+  // CTA tiles (no permanent boxes; your CSS shows the box only on hover/active)
+  var tiles =
+    '<div class="hero-actions">' +
 
-    // 3) Copy Email — ghost icon button
-    (email ? [
-      '<button class="btn ghost hero-cta" id="copyEmail">',
-        '<span class="icon copy" aria-hidden="true"></span>',
-        '<span class="btn-label">Copy Email</span>',
-      '</button>'
-    ].join('') : '')
-  ].join('');
+      // 1) Email me — primary tile
+      (email ? (
+        '<a class="tile primary" id="mailLink" href="mailto:'+email+'">' +
+          '<span class="icon mail" aria-hidden="true"></span>' +
+          '<span class="title">Email me</span>' +
+        '</a>'
+      ) : '') +
 
-  // Inject
+      // 2) Copy email — neutral tile
+      (email ? (
+        '<button class="tile" id="copyEmail" type="button">' +
+          '<span class="icon copy" aria-hidden="true"></span>' +
+          '<span class="title">Copy Email</span>' +
+        '</button>'
+      ) : '') +
+
+      // 3) Resume PDF — neutral tile (+ size overlaid, not affecting layout)
+      '<a class="tile resume" href="'+escapeHTML(intro.cvPath)+'" target="_blank" rel="noopener">' +
+      '<span class="icon download" aria-hidden="true"></span>' +
+      '<span class="title">Resume PDF</span>' +
+      (cvSizeText ? '<span class="meta meta-overlay">'+cvSizeText+'</span>' : '') +
+      '</a>' +
+    '</div>';
+
+  // Inject hero
   el.innerHTML =
     '<h1>'+escapeHTML(intro.headline)+'</h1>' +
     (intro.subtitle ? '<p class="tagline muted">'+escapeHTML(intro.subtitle)+'</p>' : '') +
     '<p class="lead hero-lead">'+escapeHTML(intro.summary)+'</p>' +
-    '<div class="row mt-20">'+ buttonsHtml +'</div>' +
-    (chipsHtml ? '<div class="stack hero-chips">'+ chipsHtml +'</div>' : '');
+    tiles +
+    (chipsHtml ? '<div class="stack hero-chips">'+chipsHtml+'</div>' : '');
 
-  // Copy handler
+  // Copy feedback → changes label to “Copied!” briefly
   var copyBtn = document.getElementById('copyEmail');
   if (copyBtn && email){
-    copyBtn.addEventListener('click', function(e){
+    copyBtn.addEventListener('click', function(){
       navigator.clipboard.writeText(email).then(function(){
-        var label = e.currentTarget.querySelector('.btn-label');
-        if (label) {
-          label.textContent = 'Copied!';
-          setTimeout(function(){ label.textContent = 'Copy Email'; }, 1200);
-        }
+        var title = copyBtn.querySelector('.title');
+        var old = title.textContent;
+        title.textContent = 'Copied!';
+        copyBtn.classList.add('copied');      // optional if you style .tile.copied
+        setTimeout(function(){
+          title.textContent = old;
+          copyBtn.classList.remove('copied');
+        }, 1200);
       });
     });
   }
 }
-
 
 function renderExperience(items){
   var el = document.getElementById('experienceGrid'); if(!el) return;
